@@ -2,33 +2,33 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { emitter } from '../../utils/emitter';
-class ModalUser extends Component {
+import _ from 'lodash'
+class ModalEditUser extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            id: '',
             email: '',
             password: '',
             firstName: '',
             lastName: '',
             address: '',
         }
-        this.listenToEmitter()
-    }
-    listenToEmitter = () => {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-            this.setState({
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                address: '',
-            })
-        })
     }
     componentDidMount() {
-        console.log(">>Mounting modal")
+        let user = this.props.currentUser
+        if (user && !_.isEmpty(user)) {
+            this.setState({
+                id: user.id,
+                email: user.email,
+                password: 'hardcode',
+                firstName: user.firstName,
+                lastName: user.lastName,
+                address: user.address
+            })
+        }
+        console.log(">>Mounting modal", this.props.currentUser)
     }
     toggle = () => {
         this.props.togglefromParent()
@@ -56,14 +56,16 @@ class ModalUser extends Component {
         return isValidInput
     }
 
-    addNewUser = () => {
+    handleSaveUser = () => {
         let isValid = this.checkValidInput()
         if (isValid === true) {
-            this.props.createNewUser(this.state)
+            //Call APi edit user
+            this.props.editUser(this.state)
         }
     }
 
     render() {
+        console.log(">>check props", this.props)
         return (
             <Modal
                 isOpen={this.props.isOpenModal}
@@ -71,7 +73,7 @@ class ModalUser extends Component {
                 className='abc'
                 size='md'
             >
-                <ModalHeader toggle={() => this.toggle()}>Create New User</ModalHeader>
+                <ModalHeader toggle={() => this.toggle()}>Edit User</ModalHeader>
                 <ModalBody>
                     <div className="container">
                         <div className="row">
@@ -81,14 +83,16 @@ class ModalUser extends Component {
                                     <input type="email" className="form-control" name="email"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "email")}
-                                        value={this.state.email} />
+                                        value={this.state.email}
+                                        disabled />
                                 </div>
                                 <div className="col-md-6">
                                     <label for="password" className="form-label">Password</label>
                                     <input type="password" className="form-control" name="password"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "password")}
-                                        value={this.state.password} />
+                                        value={this.state.password}
+                                        disabled />
                                 </div>
                                 <div className="col-md-6">
                                     <label for="firstname" className="form-label">First name</label>
@@ -116,7 +120,7 @@ class ModalUser extends Component {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className='px-2' color="primary" onClick={() => this.addNewUser()}>Add New</Button>{' '}
+                    <Button className='px-2' color="primary" onClick={() => this.handleSaveUser()}>Save Changes</Button>{' '}
                     <Button className='px-2' color="secondary" onClick={() => this.toggle()}>Cancel</Button>
                 </ModalFooter>
             </Modal>
@@ -135,4 +139,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
