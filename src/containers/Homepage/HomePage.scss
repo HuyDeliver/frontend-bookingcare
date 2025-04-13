@@ -1,0 +1,122 @@
+.slick-prev {
+    left: -10px !important;
+    z-index: 1000;
+    height: 48px !important;
+    width: 44px !important;
+    background-color: #fff !important;
+    border: 1px solid #d7d7d7 !important;
+
+    &::before {
+        font-family: FontAwesome !important;
+        color: red !important;
+    }
+
+    &:hover {
+        background-color: #d7d7d7 !important;
+    }
+}
+
+.slick-next {
+    right: -10px !important;
+    z-index: 1000;
+    height: 48px !important;
+    width: 44px !important;
+    background-color: #fff !important;
+    border: 1px solid #d7d7d7 !important;
+
+
+    &::before {
+        font-family: FontAwesome !important;
+        color: red !important;
+    }
+
+    &:hover {
+        background-color: #d7d7d7 !important;
+    }
+}
+
+.section-content {
+    &.section-bg {
+        background-color: #f5f5f5;
+    }
+
+    .section-container {
+        height: 350px;
+        margin: 0 174px;
+        display: flex;
+        flex-direction: column;
+
+        .section-heading {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            span {
+                font-size: 22px;
+                font-weight: 500;
+            }
+
+            button {
+                text-transform: uppercase;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                background-color: #ebebeb;
+                color: black;
+                cursor: pointer;
+                margin-right: 15px;
+
+                &:hover {
+                    color: white;
+                    background-color: #f7d800;
+                }
+            }
+        }
+
+        .section-body {
+            .section-content {
+                .section-img {
+                    width: 278px;
+                    height: 150px;
+                    background-position: center center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-color: #eee;
+                    margin-bottom: 4px;
+
+                    &.Specialty-img {
+                        background-image: url('../../assets/images/co-xuong-khop.jpeg');
+                    }
+
+                    &.medical-img {
+                        background-image: url('../../assets/images/benh-vien-thu-cuc.jpeg');
+                    }
+
+                    &.Doctor-img {
+                        background-image: url('../../assets/images/tuyet-xuong.jpg');
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section-content {
+    padding: 5px;
+
+    .customize-border {
+        border: 1px solid orange;
+        padding: 20px;
+
+        .outer-bg {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+
+        }
+    }
+}
