@@ -5,9 +5,10 @@ import HomeHeader from './HomeHeader'
 import Specialty from './Section/Specialty';
 import MedicalFacility from './Section/MedicalFacility';
 import FeaturedDoctor from './Section/FeaturedDoctor';
+import HanBook from './Section/HanBook';
+import About from './Section/About';
+import HomeFooter from './HomeFooter';
 import './HomePage.scss'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 class HomePage extends Component {
 
     render() {
@@ -30,6 +31,9 @@ class HomePage extends Component {
                 <FeaturedDoctor
                     settings={settings}
                 />
+                <HanBook />
+                <About />
+                <HomeFooter />
             </>
         );
     }

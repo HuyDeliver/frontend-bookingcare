@@ -4,19 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-
-
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
-
 import { path } from '../utils'
-
 import Home from '../routes/Home';
-// import Login from '../routes/Login';
 import Login from './Auth/Login';
-import Header from './Header/Header';
 import System from '../routes/System';
 import HomePage from './Homepage/HomePage';
-
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 
@@ -45,8 +38,6 @@ class App extends Component {
             <Fragment>
                 <Router history={history}>
                     <div className="main-container">
-                        {this.props.isLoggedIn && <Header />}
-
                         <span className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />

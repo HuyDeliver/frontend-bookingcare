@@ -26,9 +26,12 @@ class HomeHeader extends Component {
     }
     changeLanguage = (language) => {
         //Khia báo 1 action
+        console.log(language)
         this.props.changeLanguageAppRedux(language)
     }
     render() {
+        let language = this.props.language
+        console.log(this.props.userInfo)
         return (
             <>
                 <div className="home-header-container">
@@ -59,11 +62,10 @@ class HomeHeader extends Component {
                         <div className="right-content">
                             <div className="menu-lang"
                                 onClick={() => {
-                                    this.handleChangeLang()
-                                    this.changeLanguage(this.state.isChangelang ? LANGUAGES.VI : LANGUAGES.EN)
+                                    this.changeLanguage(language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI)
                                 }
                                 }
-                            >{this.state.isChangelang ? 'EN' : 'VN'}</div>
+                            >{language === LANGUAGES.VI ? 'VN' : 'EN'}</div>
                             <div className="menu-support">
                                 <i className='fas fa-question-circle'></i>
                                 <FormattedMessage id="homeheader.help" />
@@ -120,6 +122,7 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
         language: state.app.language
     };
 };
