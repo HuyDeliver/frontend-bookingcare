@@ -1,0 +1,23 @@
+.upload-img {
+    display: flex;
+    justify-content: center;
+}
+
+.label-img {
+    padding: 6px 11px;
+    border-radius: 3px;
+    background-color: #ddd;
+    cursor: pointer;
+
+    i {
+        margin-left: 4px;
+    }
+}
+
+.prevImg {
+    height: 50px;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
