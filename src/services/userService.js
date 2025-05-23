@@ -8,7 +8,7 @@ const getAllUsers = (id) => {
 }
 
 const createNewUserService = (data) => {
-    console.log(">>check data message: ", data)
+    console.log('check data: ', data)
     return axios.post('/api/create-new-users', data)
 }
 const delteteUserService = (userId) => {

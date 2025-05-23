@@ -1,18 +1,28 @@
 .upload-img {
     display: flex;
-    justify-content: center;
+    gap: 12px;
 }
 
-.label-img {
-    padding: 6px 11px;
+.label {
+    padding: 0px 11px;
+    width: 120px;
+    height: 36px;
+    white-space: nowrap;
     border-radius: 3px;
     background-color: #ddd;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-    i {
-        margin-left: 4px;
+    .label-img {
+        cursor: pointer;
+
+        i {
+            margin-left: 4px;
+        }
     }
 }
+
 
 .prevImg {
     height: 50px;
