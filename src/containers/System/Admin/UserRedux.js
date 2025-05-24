@@ -37,16 +37,6 @@ class UserRedux extends Component {
         this.props.getGenderStart()
         this.props.getPositionStart()
         this.props.getRoleStart()
-        // try {
-        //     let res = await getAllCodeService('gender')
-        //     if (res && res.errCode === 0) {
-        //         this.setState({
-        //             genderArr: res.data
-        //         })
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        // }
     }
 
     componentDidUpdate(prevProps, prevState, snapShot) {
@@ -187,7 +177,7 @@ class UserRedux extends Component {
             avatar: '',
             userEditid: user.id,
             action: CRUD_ACTIONS.EDIT
-        }, () => console.log("check", this.state))
+        })
     }
 
     backToCreateUser = () => {

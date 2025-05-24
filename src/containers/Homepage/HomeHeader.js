@@ -26,12 +26,10 @@ class HomeHeader extends Component {
     }
     changeLanguage = (language) => {
         //Khia báo 1 action
-        console.log(language)
         this.props.changeLanguageAppRedux(language)
     }
     render() {
         let language = this.props.language
-        console.log(this.props.userInfo)
         return (
             <>
                 <div className="home-header-container">
