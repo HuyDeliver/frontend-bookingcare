@@ -35,6 +35,10 @@
     }
 }
 
+.slick-disabled {
+    display: none !important;
+}
+
 .section-content {
     &.section-bg {
         background-color: #f5f5f5;
@@ -79,7 +83,8 @@
         .section-body {
             .section-content {
                 .section-img {
-                    width: 278px;
+                    width: 100%;
+                    max-width: 278px;
                     height: 150px;
                     background-position: center center;
                     background-size: cover;
@@ -134,6 +139,7 @@
 .section-handbook {
     display: flex;
     justify-content: space-between;
+    gap: 14px;
 
     .section-slogan {
         margin-right: 11px;

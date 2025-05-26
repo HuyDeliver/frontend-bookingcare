@@ -12,7 +12,7 @@
         "welcome": "Welcome"
     },
     "slider": {
-        "medical-background": "Medical background",
+        "medical-background": "Medical platform",
         "comprehensive-care": "Comprehensive health care",
         "specialist-exam": "Specialist examination",
         "telemedicine": "Telemedicine",
@@ -50,5 +50,9 @@
         "role": "Role",
         "save": "Save user",
         "edit": "Edit user"
+    },
+    "homepage": {
+        "outstandingdoctor": "Last week's featured doctor",
+        "more-info": "More info"
     }
 }

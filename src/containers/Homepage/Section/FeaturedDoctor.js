@@ -38,8 +38,8 @@ class FeaturedDoctor extends Component {
             <div className="section-content section-bg">
                 <div className="section-container">
                     <div className="section-heading">
-                        <span>Bác sĩ nổi bật tuần qua</span>
-                        <button>Xem thêm</button>
+                        <span><FormattedMessage id="homepage.outstandingdoctor" /></span>
+                        <button><FormattedMessage id="homepage.more-info" /></button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
@@ -49,8 +49,8 @@ class FeaturedDoctor extends Component {
                                     if (item.image) {
                                         imageBase64 = Buffer.from(item.image, 'base64').toString('binary')
                                     }
-                                    let nameEN = `${item.positionData.value_EN} ${item.firstName} ${item.lastName}`
-                                    let nameVi = `${item.positionData.value_VN} ${item.firstName} ${item.lastName}`
+                                    let nameEN = `${item.positionData.value_EN} ${item.lastName} ${item.firstName}`
+                                    let nameVi = `${item.positionData.value_VN} ${item.lastName} ${item.firstName}`
                                     return (
                                         <div className='section-content' key={index}>
                                             <div className="customize-border">
