@@ -11,6 +11,7 @@ import khamtongquat from '../../assets/images/khamtongquat.png'
 import dichvuxetnghiem from '../../assets/images/dichvuxetnghiem.png'
 import suckhoetinhthan from '../../assets/images/suckhoetinhthan.png'
 import khamnhakhoa from '../../assets/images/khamnhakhoa.png'
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -28,6 +29,12 @@ class HomeHeader extends Component {
         //Khia báo 1 action
         this.props.changeLanguageAppRedux(language)
     }
+
+    handlereturnToHome = () => {
+        if (this.props.history) {
+            this.props.history.push(`/home`)
+        }
+    }
     render() {
         let language = this.props.language
         return (
@@ -36,8 +43,7 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <div className="header-logo">
-                            </div>
+                            <div className="header-logo" onClick={() => this.handlereturnToHome()}></div>
                         </div>
                         <div className="center-content">
                             <div className='child-content'>
@@ -71,46 +77,49 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div >
-                <div className="home-header-slider">
-                    <div className="slider-title">
-                        <h1><FormattedMessage id="slider.medical-background" /></h1>
-                        <h2><FormattedMessage id="slider.comprehensive-care" /></h2>
-                    </div>
-                    <div className="slider-search">
-                        <i className='fas fa-search'></i>
-                        <input type="text" value="" placeholder="Tìm bác sĩ, chuyên khoa, bệnh viện..." />
-                    </div>
-                    <div className="slider-option">
-                        <div className='option-menu'>
-                            <div className='option-img'>
-                                <img src={khamchuyenkhoa} alt="" />
+                {this.props.isShowbanner === true &&
+                    <div className="home-header-slider">
+                        <div className="slider-title">
+                            <h1><FormattedMessage id="slider.medical-background" /></h1>
+                            <h2><FormattedMessage id="slider.comprehensive-care" /></h2>
+                        </div>
+                        <div className="slider-search">
+                            <i className='fas fa-search'></i>
+                            <input type="text" value="" placeholder="Tìm bác sĩ, chuyên khoa, bệnh viện..." />
+                        </div>
+                        <div className="slider-option">
+                            <div className='option-menu'>
+                                <div className='option-img'>
+                                    <img src={khamchuyenkhoa} alt="" />
+                                </div>
+                                <div>
+                                    <h4><FormattedMessage id="slider.specialist-exam" /></h4>
+                                </div>
                             </div>
-                            <div>
-                                <h4><FormattedMessage id="slider.specialist-exam" /></h4>
+                            <div className='option-menu'>
+                                <div className='option-img'><img src={khamtuxa} alt="" /></div>
+                                <div><h4><FormattedMessage id="slider.telemedicine" /></h4></div>
+                            </div>
+                            <div className='option-menu'>
+                                <div className='option-img'><img src={khamtongquat} alt="" /></div>
+                                <div><h4><FormattedMessage id="slider.general-exam" /></h4></div>
+                            </div>
+                            <div className='option-menu'>
+                                <div className='option-img'><img src={dichvuxetnghiem} alt="" /></div>
+                                <div><h4><FormattedMessage id="slider.medical-test" /></h4></div>
+                            </div>
+                            <div className='option-menu'>
+                                <div className='option-img'><img src={suckhoetinhthan} alt="" /></div>
+                                <div><h4><FormattedMessage id="slider.mental-health" /></h4></div>
+                            </div>
+                            <div className='option-menu'>
+                                <div className='option-img'><img src={khamnhakhoa} alt="" /></div>
+                                <div><h4><FormattedMessage id="slider.dental-checkup" /></h4></div>
                             </div>
                         </div>
-                        <div className='option-menu'>
-                            <div className='option-img'><img src={khamtuxa} alt="" /></div>
-                            <div><h4><FormattedMessage id="slider.telemedicine" /></h4></div>
-                        </div>
-                        <div className='option-menu'>
-                            <div className='option-img'><img src={khamtongquat} alt="" /></div>
-                            <div><h4><FormattedMessage id="slider.general-exam" /></h4></div>
-                        </div>
-                        <div className='option-menu'>
-                            <div className='option-img'><img src={dichvuxetnghiem} alt="" /></div>
-                            <div><h4><FormattedMessage id="slider.medical-test" /></h4></div>
-                        </div>
-                        <div className='option-menu'>
-                            <div className='option-img'><img src={suckhoetinhthan} alt="" /></div>
-                            <div><h4><FormattedMessage id="slider.mental-health" /></h4></div>
-                        </div>
-                        <div className='option-menu'>
-                            <div className='option-img'><img src={khamnhakhoa} alt="" /></div>
-                            <div><h4><FormattedMessage id="slider.dental-checkup" /></h4></div>
-                        </div>
                     </div>
-                </div>
+                }
+
             </>
         );
     }
@@ -131,4 +140,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

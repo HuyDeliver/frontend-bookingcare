@@ -1,0 +1,65 @@
+@mixin content-size {
+    height: 100%;
+    max-width: 1215px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.doctor-detail-container {
+
+    .infor-doctor {
+        padding: 16px 0;
+        margin: 18px 0;
+
+        div {
+            @include content-size();
+            display: flex;
+        }
+
+        .doctor-img {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin: 0;
+        }
+
+        .intro-doctor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 6px;
+
+            .title-doctor {
+                font-size: 26px;
+                font-weight: 500;
+                margin-bottom: 4px;
+                margin-left: 0;
+            }
+
+            .job-title {
+                color: rgba(85, 85, 85, 0.8);
+                margin-left: 0;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .detail-info-doctor {
+        font-size: 16px;
+        padding: 16px 0;
+        margin: 18px 0;
+        background-color: #f5f5f5;
+
+        p {
+            font-weight: 400
+        }
+
+        div {
+            @include content-size();
+            padding: 16px 0;
+        }
+    }
+}

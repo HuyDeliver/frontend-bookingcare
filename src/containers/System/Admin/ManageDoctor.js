@@ -9,6 +9,8 @@ import 'react-markdown-editor-lite/lib/index.css';
 import './ManageDoctor.scss'
 import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
+import { getDetailDoctorService } from '../../../services/userService';
+import { CRUD_ACTIONS } from '../../../utils';
 // Initialize a markdown parser
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -22,7 +24,8 @@ class ManageDoctor
             contentHTML: '',
             selectedDoctor: '',
             description: '',
-            listDoctors: []
+            listDoctors: [],
+            hasOlData: false,
         }
     }
     async componentDidMount() {
@@ -59,8 +62,26 @@ class ManageDoctor
         }
         return result
     }
-    handleChange = (selectedDoctor) => {
+    handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor })
+
+        let res = await getDetailDoctorService(selectedDoctor.value)
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markdown = res.data.Markdown
+            this.setState({
+                contentMarkdown: markdown.contentMarkdown,
+                contentHTML: markdown.contentHTML,
+                description: markdown.description,
+                hasOlData: true,
+            })
+        } else {
+            this.setState({
+                contentMarkdown: '',
+                contentHTML: '',
+                description: '',
+                hasOlData: false,
+            })
+        }
     };
     handleEditorChange = ({ html, text }) => {
         this.setState({
@@ -73,7 +94,15 @@ class ManageDoctor
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
-            doctorId: this.state.selectedDoctor.value
+            doctorId: this.state.selectedDoctor.value,
+            action: this.state.hasOlData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
+        })
+        this.setState({
+            contentMarkdown: '',
+            contentHTML: '',
+            selectedDoctor: '',
+            description: '',
+            hasOlData: false,
         })
     }
     handleOnchangeDescription = (e) => {
@@ -99,18 +128,21 @@ class ManageDoctor
                             <label className='mb-2' for="">Thông tin giới thiệu</label>
                             <textarea className='form-control' rows='4'
                                 onChange={(e) => this.handleOnchangeDescription(e)}
+                                value={this.state.description}
                             ></textarea>
                         </div>
                         <div className="col-12 mt-5">
                             <MdEditor
                                 style={{ height: '500px' }}
                                 renderHTML={text => mdParser.render(text)}
-                                onChange={this.handleEditorChange} />
+                                onChange={this.handleEditorChange}
+                                value={this.state.contentMarkdown}
+                            />
                         </div>
                         <div className="col-3 mt-4">
-                            <button className='btn btn-primary'
+                            <button className={this.state.hasOlData === true ? 'btn btn-primary' : 'btn btn-success'}
                                 onClick={() => this.handleSaveContent()}
-                            >Lưu thông tin</button>
+                            >{this.state.hasOlData === true ? 'Lưu thông tin' : 'Tạo thông tin'}</button>
                         </div>
                     </div>
                 </div>

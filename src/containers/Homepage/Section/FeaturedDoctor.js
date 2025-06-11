@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import '../HomePage.scss'
 import * as action from '../../../store/actions'
 import { LANGUAGES } from '../../../utils';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class FeaturedDoctor extends Component {
     constructor(props) {
@@ -30,10 +31,13 @@ class FeaturedDoctor extends Component {
         }
     }
 
+
+    handleViewDetailDoctor = (doctor) => {
+        this.props.history.push(`/detail-doctor/${doctor.id}`)
+    }
     render() {
         let arrDoctors = this.state.arrDoctor
         let language = this.props.language
-        console.log("check state", arrDoctors)
         return (
             <div className="section-content section-bg">
                 <div className="section-container">
@@ -52,7 +56,7 @@ class FeaturedDoctor extends Component {
                                     let nameEN = `${item.positionData.value_EN} ${item.lastName} ${item.firstName}`
                                     let nameVi = `${item.positionData.value_VN} ${item.lastName} ${item.firstName}`
                                     return (
-                                        <div className='section-content' key={index}>
+                                        <div className='section-content' key={index} onClick={() => this.handleViewDetailDoctor(item)}>
                                             <div className="customize-border">
                                                 <div className="outer-bg">
                                                     <div className="section-img Doctor-img" style={{ backgroundImage: `url(${imageBase64})` }}>
@@ -90,6 +94,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeaturedDoctor
-
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FeaturedDoctor));

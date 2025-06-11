@@ -135,7 +135,6 @@ export const fetchTopDoctor = () => {
             let res = await getTopDoctorService('8')
             if (res && res.errCode === 0) {
                 dispatch(fetchTopDoctorSuccess(res.data))
-                toast.success(res.errMessage)
             } else {
                 toast.error(res.errMessage)
                 dispatch(fetchTopDoctorFailed())
