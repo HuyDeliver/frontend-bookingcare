@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import './ManageSchedule.scss'
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
@@ -167,14 +168,11 @@ class ManageSchedule extends Component {
                             </div>
                         </div>
                     </div>
-
-                </div >
+                </div>
             </>
-
-        );
+        )
     }
 }
-
 const mapStateToProps = state => {
     return {
         language: state.app.language,
