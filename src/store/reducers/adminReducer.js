@@ -7,7 +7,8 @@ const initialState = {
     position: [],
     users: [],
     topdoctor: [],
-    allDoctors: []
+    allDoctors: [],
+    scheduleTimes: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -47,6 +48,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ROLE_FAILED:
             state.roles = []
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SCHEDULE_TIME_SUCCESS:
+            state.scheduleTimes = action.data
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SCHEDULE_TIME_FAILED:
+            state.scheduleTimes = []
             return {
                 ...state
             }

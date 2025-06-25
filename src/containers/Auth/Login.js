@@ -58,6 +58,11 @@ class Login extends Component {
             isShowPass: !this.state.isShowPass
         })
     }
+    handleKeydown = (e) => {
+        if (e.key === 'Enter') {
+            this.handleLogin()
+        }
+    }
     render() {
 
         return (
@@ -77,6 +82,7 @@ class Login extends Component {
                                 <div className="custom-input">
                                     <input type={this.state.isShowPass ? 'text' : 'password'} value={this.state.password} className="form-control" placeholder='Enter your password'
                                         onChange={(e) => this.handleOnchangePass(e)}
+                                        onKeyDown={(e) => this.handleKeydown(e)}
                                     />
                                     <span onClick={() => this.handleShowHidePass()}>
                                         <i className={this.state.isShowPass ? 'icon-eye fa fa-eye' : 'icon-eye fa fa-eye-slash'}></i>

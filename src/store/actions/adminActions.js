@@ -22,6 +22,7 @@ const createFetchAPI = (type, code) => {
 export const fetchGenderStart = () => createFetchAPI('FETCH_GENDER', 'GENDER')
 export const fetchPositionStart = () => createFetchAPI('FETCH_POSITION', 'POSITION')
 export const fetchRoleStart = () => createFetchAPI('FETCH_ROLE', 'ROLE')
+export const fetchAllScheduleHourStart = () => createFetchAPI('FETCH_SCHEDULE_TIME', 'TIME')
 
 
 export const createNewUser = (data) => {

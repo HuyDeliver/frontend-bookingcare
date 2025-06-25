@@ -1,0 +1,18 @@
+.manage-schedule-container {
+    .container {
+        max-width: 1200px;
+    }
+
+    .m-s-title {
+        text-transform: uppercase;
+        font-size: 20px;
+        color: #0071ba;
+        font-weight: 600;
+    }
+
+    .pick-hour {
+        &active {
+            background-color: #6c757d;
+        }
+    }
+}
