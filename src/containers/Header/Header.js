@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
 import { adminMenu, doctorMenu } from './menuApp';
@@ -9,59 +8,105 @@ import { LANGUAGES, USER_ROLE } from '../../utils';
 import { changeLanguageApp } from '../../store/actions'
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
+
 class Header extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             menuApp: [],
             isChangeLang: false
+        };
+    }
+
+    componentDidMount() {
+        this.setMenuByRole();
+    }
+
+    componentDidUpdate(prevProps) {
+        // Cập nhật menu khi userInfo thay đổi
+        if (prevProps.userInfo !== this.props.userInfo) {
+            this.setMenuByRole();
         }
     }
-    componentDidMount() {
-        let userInfo = this.props.userInfo
-        let menu = []
+
+    setMenuByRole = () => {
+        const { userInfo } = this.props;
+        let menu = [];
+
         if (userInfo && !_.isEmpty(userInfo)) {
-            let role = userInfo.roleID
-            if (role === USER_ROLE.ADMIN) {
-                menu = adminMenu
-            } else if (role === USER_ROLE.DOCTOR) {
-                menu = doctorMenu
+            const { roleID } = userInfo;
+
+            switch (roleID) {
+                case USER_ROLE.ADMIN:
+                    menu = adminMenu;
+                    break;
+                case USER_ROLE.DOCTOR:
+                    menu = doctorMenu;
+                    break;
+                case USER_ROLE.PATIENT:
+                    // Patient không có menu system
+                    menu = [];
+                    break;
+                default:
+                    menu = [];
+                    break;
             }
         }
+
         this.setState({
             menuApp: menu
-        })
-
+        });
     }
 
     handleChangelang = () => {
         this.setState({
             isChangeLang: !this.state.isChangeLang
-        })
-    }
-    ChangeLang = (language) => {
-        this.props.changeLanguageRedux(language)
+        });
     }
 
+    ChangeLang = (language) => {
+        this.props.changeLanguageRedux(language);
+    }
 
     render() {
         const { processLogout, language, userInfo } = this.props;
+
+        // Nếu không có userInfo, không hiển thị header
+        if (!userInfo || _.isEmpty(userInfo)) {
+            return null;
+        }
+
+        const { firstName, lastName, roleID } = userInfo;
+        const displayName = firstName || lastName || 'User';
+
         return (
             <div className="header-container">
-                {/* thanh navigator */}
-                <div className="header-tabs-container">
-                    <Navigator menus={this.state.menuApp} />
-                </div>
-                <div className="languages">
-                    <span className='welcome'><FormattedMessage id='homeheader.welcome' />, {userInfo && userInfo.firstName ? userInfo.firstName : ''}</span>
-                    <span className="menu-lang"
-                        onClick={() => {
-                            this.ChangeLang(language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI
+                {/* Navigation tabs - chỉ hiển thị nếu có menu */}
+                {this.state.menuApp.length > 0 && (
+                    <div className="header-tabs-container">
+                        <Navigator menus={this.state.menuApp} />
+                    </div>
+                )}
 
-                            )
+                <div className="languages">
+                    <span className='welcome'>
+                        <FormattedMessage id='homeheader.welcome' />, {displayName}
+                        {/* Hiển thị role để debug (có thể xóa trong production) */}
+                        <span className="user-role" style={{ fontSize: '12px', marginLeft: '5px', opacity: 0.7 }}>
+                            ({roleID})
+                        </span>
+                    </span>
+
+                    <span
+                        className="menu-lang"
+                        onClick={() => {
+                            this.ChangeLang(language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI);
                         }}
-                    >{language === LANGUAGES.VI ? 'VN' : 'EN'}</span>
-                    {/* nút logout */}
+                    >
+                        {language === LANGUAGES.VI ? 'VN' : 'EN'}
+                    </span>
+
+                    {/* Logout button */}
                     <div className="btn btn-logout" onClick={processLogout} title='Log Out'>
                         <i className="fas fa-sign-out-alt"></i>
                     </div>
@@ -69,7 +114,6 @@ class Header extends Component {
             </div>
         );
     }
-
 }
 
 const mapStateToProps = state => {

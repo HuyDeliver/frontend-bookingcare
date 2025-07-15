@@ -1,0 +1,72 @@
+.doctor-schedule-container {
+
+
+    .schedule-list {
+        width: 150px;
+
+        .my-select__control {
+            border: none !important;
+            border-bottom: 2px solid #007bff !important;
+            /* màu xanh dương */
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            min-height: unset !important;
+        }
+
+        .my-select__control:hover {
+            border-bottom: 2px solid #0056b3 !important;
+            /* màu hover */
+        }
+
+        .my-select__indicator-separator {
+            display: none;
+        }
+
+        .my-select__menu {
+            z-index: 9999;
+        }
+
+        .my-select__value-container {
+            padding: 0 !important;
+        }
+
+    }
+
+    .schedule-available-time {
+        .schedule-title {
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 8px;
+            color: #333;
+
+            i {
+                margin-right: 10px;
+            }
+        }
+
+        .schedule-time {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+
+            .schedule-btn {
+                min-width: 145px;
+                padding: 6px;
+                outline: none;
+                border: none;
+                background-color: #EEEE;
+                color: #333;
+                font-weight: 500;
+
+                &:hover {
+                    border: 2px solid #33b0e3;
+                }
+            }
+        }
+    }
+
+
+
+}

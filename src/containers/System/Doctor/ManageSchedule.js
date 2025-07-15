@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import './ManageSchedule.scss'
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions'
 import { dateFormat, LANGUAGES } from '../../../utils';
-import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import { saveDoctorScheduleService } from '../../../services/userService';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 class ManageSchedule extends Component {
     constructor(props) {
         super(props)
         this.state = {
             listDoctors: [],
             selectedDoctor: '',
-            currentDate: '',
+            currentDate: new Date().setHours(0, 0, 0, 0),
             rangeTime: '',
         }
     }
@@ -44,12 +46,6 @@ class ManageSchedule extends Component {
                 rangeTime: data
             })
         }
-        // if (prevProps.language !== this.props.language) {
-        //     let dataSelect = this.builDataInputSelect(this.props.allDoctors)
-        //     this.setState({
-        //         listDoctors: dataSelect
-        //     })
-        // }
     }
 
     builDataInputSelect = (inputData) => {
@@ -71,9 +67,11 @@ class ManageSchedule extends Component {
         this.setState({ selectedDoctor })
     };
     handleDateChange = (date) => {
+        const newDate = new Date(date);
+        newDate.setHours(0, 0, 0, 0);
         this.setState({
-            currentDate: date[0]
-        })
+            currentDate: newDate
+        });
     }
     handleClickBtnTime = (time) => {
         let { rangeTime } = this.state
@@ -89,7 +87,7 @@ class ManageSchedule extends Component {
             })
         }
     }
-    handleSaveInfo = () => {
+    handleSaveInfo = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state
         if (!currentDate) {
             toast.error('Invalid date !!!')
@@ -99,16 +97,26 @@ class ManageSchedule extends Component {
             toast.error('Invalid selected doctor !!!')
             return
         }
-        let formattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        let date = new Date(currentDate);
+
+        // Tạo date ở đúng 00:00 giờ Việt Nam (UTC+7)
+        let fixedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+        // Convert về UTC trước khi gửi
+        const finalDate = new Date(Date.UTC(
+            fixedDate.getFullYear(),
+            fixedDate.getMonth(),
+            fixedDate.getDate()
+        ));
         let result = []
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
             if (selectedTime && selectedTime.length > 0) {
                 selectedTime.map((item) => {
                     let object = {}
-                    object.doctorId = selectedDoctor.value
-                    object.date = formattedDate
-                    object.time = item.key
+                    object.doctorID = selectedDoctor.value
+                    object.date = finalDate
+                    object.timeType = item.key
                     result.push(object)
                 })
             } else {
@@ -116,12 +124,31 @@ class ManageSchedule extends Component {
                 return
             }
         }
-        console.log("check result", result)
+        let res = await saveDoctorScheduleService({
+            arrSchedule: result,
+            doctorID: selectedDoctor.value,
+            date: finalDate
+        })
+        if (res && res.errCode === 0) {
+            toast.success('Lưu thành công');
+
+            let resetRangeTime = this.state.rangeTime.map(item => ({
+                ...item,
+                isSelected: false
+            }));
+
+            this.setState({
+                selectedDoctor: '',
+                currentDate: new Date().setHours(0, 0, 0, 0),
+                rangeTime: resetRangeTime
+            });
+        } else {
+            toast.error(res.errMessage);
+        }
     }
     render() {
         let { rangeTime } = this.state
         let { language } = this.props
-        console.log(rangeTime)
         return (
             <>
                 < div className="manage-schedule-container" >
@@ -142,9 +169,9 @@ class ManageSchedule extends Component {
                             <div className="col-6 form-group">
                                 <label for=""><FormattedMessage id="manage-schedule.choose-date" /></label>
                                 <DatePicker
-                                    // selected={date}
-                                    // onSelect={handleDateSelect} //when day is clicked
-                                    onChange={this.handleDateChange} //only when value has changed
+                                    //dateFormat="yyyy-MM-dd HH:mm:ss"
+                                    dateFormat="dd/MM/yyyy"
+                                    onChange={this.handleDateChange}
                                     className="form-control mt-3 mb-3"
                                     selected={this.state.currentDate}
                                     minDate={new Date()}

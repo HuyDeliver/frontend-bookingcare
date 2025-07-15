@@ -4,7 +4,8 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_DOCTOR: '/detail-doctor/:id'
+    DETAIL_DOCTOR: '/detail-doctor/:id',
+    DOCTOR_SCD: '/doctor/manage-schedule'
 };
 
 export const LANGUAGES = {
@@ -20,7 +21,7 @@ export const CRUD_ACTIONS = {
 };
 
 export const dateFormat = {
-    SEND_TO_SERVER: 'DD/MM/YYYY'
+    SEND_TO_SERVER: 'YYYY-MM-DD HH:mm:ss'
 };
 
 export const YesNoObj = {
