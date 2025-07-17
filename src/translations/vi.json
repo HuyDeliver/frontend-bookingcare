@@ -63,5 +63,12 @@
         "choose-doctor": "Chọn bác sĩ",
         "choose-date": "Chọn ngày",
         "save": "Lưu thông tin"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Lịch khám",
+            "order": "Chọn <i className='far fa-hand-point-up'></i> và đặt (Phí đặt lịch 0đ)",
+            "no-schedule": "Không có lịch hẹn trong thời gian này, xin vui lòng chọn thời gian khác"
+        }
     }
 }

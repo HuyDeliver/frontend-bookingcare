@@ -6,6 +6,7 @@ import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
 import moment from 'moment';
 import 'moment/locale/vi';
+import { FormattedMessage } from 'react-intl';
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -85,7 +86,6 @@ class DoctorSchedule extends Component {
 
         try {
             let res = await getScheduleDoctorByDate(doctorID, dateSelect);
-            console.log('API Response:', res); // Debug: Kiểm tra response
             if (res && res.errCode === 0) {
                 this.setState({
                     allAvailbleTime: res.data || [],
@@ -122,19 +122,24 @@ class DoctorSchedule extends Component {
                 </div>
                 <div className="schedule-available-time">
                     <div className="schedule-title">
-                        <span><i className='fas fa-calendar-alt'></i> Lịch khám</span>
+                        <span><i className='fas fa-calendar-alt'></i><FormattedMessage id="patient.detail-doctor.schedule" /></span>
                     </div>
                     <div className="schedule-time">
                         {allAvailbleTime && allAvailbleTime.length > 0 ? (
                             allAvailbleTime.map((item, index) => (
-                                <button key={index} className='schedule-btn'>
-                                    {language === LANGUAGES.VI ? item.timeTypeData.value_VN : item.timeTypeData.value_EN}
-                                </button>
+                                <>
+                                    <button key={index} className='schedule-btn'>
+                                        {language === LANGUAGES.VI ? item.timeTypeData.value_VN : item.timeTypeData.value_EN}
+                                    </button>
+                                </>
                             ))
                         ) : (
-                            <span>Không có lịch hẹn trong thời gian này, xin vui lòng chọn thời gian khác</span>
+                            <span><FormattedMessage id="patient.detail-doctor.no-schedule" /></span>
                         )}
                     </div>
+                    {allAvailbleTime && allAvailbleTime.length > 0 &&
+                        <div style={{ fontStyle: "italic" }}><i className='far fa-hand-point-up choose-icon'></i><FormattedMessage id="patient.detail-doctor.order" /></div>
+                    }
                 </div>
             </div>
         );
