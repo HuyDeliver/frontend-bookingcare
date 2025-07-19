@@ -23,6 +23,9 @@ export const fetchGenderStart = () => createFetchAPI('FETCH_GENDER', 'GENDER')
 export const fetchPositionStart = () => createFetchAPI('FETCH_POSITION', 'POSITION')
 export const fetchRoleStart = () => createFetchAPI('FETCH_ROLE', 'ROLE')
 export const fetchAllScheduleHourStart = () => createFetchAPI('FETCH_SCHEDULE_TIME', 'TIME')
+export const fetchPriceStart = () => createFetchAPI('FETCH_PRICE', 'PRICE')
+export const fetchPaymentStart = () => createFetchAPI('FETCH_PAYMENT', 'PAYMENT')
+export const fetchProvinceStart = () => createFetchAPI('FETCH_PROVINCE', 'PROVINCE')
 
 
 export const createNewUser = (data) => {

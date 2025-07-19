@@ -29,8 +29,6 @@ class System extends Component {
     checkUserPermission = () => {
         const { userInfo, isLoggedIn } = this.props;
 
-        console.log('System - Checking permission for user:', userInfo); // Debug log
-
         // Nếu chưa đăng nhập
         if (!isLoggedIn) {
             console.log('System - User not logged in, redirecting to login');

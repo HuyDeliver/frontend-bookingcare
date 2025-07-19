@@ -70,5 +70,14 @@
             "order": "Select and order (0 fee)",
             "no-schedule": "No appointment available at this time. Please choose another time"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Create more information doctor",
+            "choose-doctor": "Choose doctor",
+            "introduction": "Introduction",
+            "add": "Create",
+            "save": "Save"
+        }
     }
 }
