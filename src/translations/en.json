@@ -69,6 +69,14 @@
             "schedule": "Examination schedule",
             "order": "Select and order (0 fee)",
             "no-schedule": "No appointment available at this time. Please choose another time"
+        },
+        "booking-infor": {
+            "clinicAddress": "Clinic Address",
+            "price": "Examination price:",
+            "hide": "Hide",
+            "show": "See more",
+            "payment": "Patients can pay the cost by",
+            "method": "cash or ATM card"
         }
     },
     "admin": {
@@ -77,7 +85,14 @@
             "choose-doctor": "Choose doctor",
             "introduction": "Introduction",
             "add": "Create",
-            "save": "Save"
+            "save": "Save",
+            "price": "Examination fee",
+            "payment": "Payment method",
+            "province": "Province",
+            "choose": "Select...",
+            "nameClinic": "Name Clinic",
+            "addressClinic": "Address Clinic",
+            "note": "Note"
         }
     }
 }

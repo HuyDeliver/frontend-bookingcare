@@ -5,6 +5,7 @@ import './DetailDoctor.scss'
 import { getDetailDoctorService } from '../../../../services/userService';
 import { LANGUAGES } from '../../../../utils';
 import DoctorSchedule from './DoctorSchedule';
+import BookingInfor from './BookingInfor';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -60,7 +61,11 @@ class DetailDoctor extends Component {
                                     detailDoctor={detailDoctor && detailDoctor.id > 0 ? detailDoctor.id : -1}
                                 />
                             </div>
-                            <div className="contact-doctor">Helloo</div>
+                            <div className="contact-doctor">
+                                <BookingInfor
+                                    detailDoctor={detailDoctor && detailDoctor.id > 0 ? detailDoctor.id : -1}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className='detail-info-doctor'>

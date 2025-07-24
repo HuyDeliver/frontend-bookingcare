@@ -67,8 +67,16 @@
     "patient": {
         "detail-doctor": {
             "schedule": "Lịch khám",
-            "order": "Chọn <i className='far fa-hand-point-up'></i> và đặt (Phí đặt lịch 0đ)",
+            "order": "Chọn và đặt (Phí đặt lịch 0đ)",
             "no-schedule": "Không có lịch hẹn trong thời gian này, xin vui lòng chọn thời gian khác"
+        },
+        "booking-infor": {
+            "clinicAddress": "Địa chỉ khám",
+            "price": "Giá khám:",
+            "hide": "Ẩn bảng giá",
+            "show": "Hiện bảng giá",
+            "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức",
+            "method": "tiền mặt hoặc thẻ ATM"
         }
     },
     "admin": {
@@ -77,7 +85,14 @@
             "choose-doctor": "Chọn bác sĩ",
             "introduction": "Thông tin giới thiệu",
             "add": "Tạo thông tin",
-            "save": "Lưu thông tin"
+            "save": "Lưu thông tin",
+            "price": "Giá khám bệnh",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "choose": "Chọn...",
+            "nameClinic": "Tên phòng khám",
+            "addressClinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     }
 }

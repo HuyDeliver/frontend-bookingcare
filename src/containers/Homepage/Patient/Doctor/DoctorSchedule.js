@@ -108,7 +108,7 @@ class DoctorSchedule extends Component {
     render() {
         let { allDays, allAvailbleTime, selectedDate } = this.state;
         let { language } = this.props;
-
+        const hasSelected = !!this.state.selectedDate;
         return (
             <div className="doctor-schedule-container">
                 <div className="schedule-list">
@@ -116,6 +116,7 @@ class DoctorSchedule extends Component {
                         value={selectedDate}
                         options={allDays}
                         onChange={this.handleChange}
+                        className={`my-select-container ${hasSelected ? 'highlight-selected' : ''}`}
                         classNamePrefix="my-select"
                         placeholder={language === LANGUAGES.VI ? "Chọn ngày" : "Select a date"}
                     />
