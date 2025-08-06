@@ -116,7 +116,6 @@ class UserRedux extends Component {
         if (isValid === false) {
             return
         }
-        console.log('Position before save:', this.state.position); // Debug giá trị position
         let { action } = this.state
         if (action === CRUD_ACTIONS.CREATE) {
             this.props.createNewUser({
@@ -150,7 +149,6 @@ class UserRedux extends Component {
 
     }
     handleOnchangeInput = (e, id) => {
-        console.log("check e", e.target.value)
         let copyState = { ...this.state }
         copyState[id] = e.target.value
         this.setState({

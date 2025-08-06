@@ -11,7 +11,7 @@ class BookingInfor extends Component {
         super(props);
         this.state = {
             bookingInfor: [],
-            isShowDetail: false
+            isShowDetail: false,
         };
     }
 

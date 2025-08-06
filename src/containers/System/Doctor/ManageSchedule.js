@@ -169,7 +169,6 @@ class ManageSchedule extends Component {
                             <div className="col-6 form-group">
                                 <label for=""><FormattedMessage id="manage-schedule.choose-date" /></label>
                                 <DatePicker
-                                    //dateFormat="yyyy-MM-dd HH:mm:ss"
                                     dateFormat="dd/MM/yyyy"
                                     onChange={this.handleDateChange}
                                     className="form-control mt-3 mb-3"

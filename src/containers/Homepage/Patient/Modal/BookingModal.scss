@@ -1,0 +1,50 @@
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+}
+
+// Áp dụng classNamePrefix='my-choose'
+.my-choose__control {
+    height: 38px !important; // giống Input của Bootstrap
+    min-height: 38px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    padding: 0 10px !important;
+    font-size: 1rem !important;
+    font-family: inherit;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        border-color: #86b7fe !important;
+    }
+
+    &--is-focused {
+        border-color: #86b7fe !important;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    }
+}
+
+.my-choose__value-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.my-choose__single-value,
+.my-choose__placeholder {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 38px !important;
+    display: flex;
+    align-items: center;
+}

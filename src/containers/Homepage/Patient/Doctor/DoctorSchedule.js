@@ -7,6 +7,9 @@ import Select from 'react-select';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { FormattedMessage } from 'react-intl';
+import BookingModal from '../Modal/BookingModal';
+import { emitter } from '../../../../utils/emitter';
+import _ from 'lodash';
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -14,33 +17,39 @@ class DoctorSchedule extends Component {
         this.state = {
             allDays: [],
             allAvailbleTime: [],
-            selectedDate: null
+            selectedDate: null,
+            isOpenModal: false,
+            dataScheduleTimeModal: {},
+            isOutOfHours: false
         };
     }
 
     async componentDidMount() {
-        let { language } = this.props;
-        await this.setArrDay(language);
-        // Chỉ fetch lịch nếu detailDoctor hợp lệ
-        if (this.props.detailDoctor > 0 && this.state.allDays.length > 0) {
-            await this.fetchSchedule(this.state.allDays[0]);
+        // Thiết lập danh sách ngày
+        this.setArrDay(this.props.language);
+
+        // Chờ cho đến khi allDays được thiết lập
+        if (this.props.detailDoctor > 0) {
+            await this.checkAndSetFirstAvailableDay();
         }
+
+        emitter.on('BOOKING_SUCCESS', this.handleBookingSuccess);
     }
 
     componentDidUpdate(prevProps) {
-        // Kiểm tra khi language thay đổi
         if (this.props.language !== prevProps.language) {
             this.setArrDay(this.props.language);
         }
-        // Kiểm tra khi detailDoctor thay đổi
-        if (this.props.detailDoctor !== prevProps.detailDoctor && this.props.detailDoctor > 0) {
-            if (this.state.allDays.length > 0) {
-                this.fetchSchedule(this.state.allDays[0]);
-            }
+        if (
+            this.props.detailDoctor !== prevProps.detailDoctor &&
+            this.props.detailDoctor > 0 &&
+            this.state.allDays.length > 0
+        ) {
+            this.checkAndSetFirstAvailableDay();
         }
     }
 
-    setArrDay = async (language) => {
+    setArrDay = (language) => {
         let allDays = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
@@ -71,15 +80,24 @@ class DoctorSchedule extends Component {
         });
     };
 
-    fetchSchedule = async (selectedDate) => {
-        if (!selectedDate || !this.props.detailDoctor || this.props.detailDoctor <= 0) {
-            console.error('Invalid doctorID or selectedDate:', {
-                doctorID: this.props.detailDoctor,
-                selectedDate
-            });
-            this.setState({ allAvailbleTime: [] });
-            return;
+    checkAndSetFirstAvailableDay = async () => {
+        const { allDays } = this.state;
+        if (!allDays.length) return;
+        for (let i = 0; i < allDays.length; i++) {
+            let result = await this.fetchSchedule(allDays[i]);
+            if (result.length > 0) {
+                this.setState({ selectedDate: allDays[i] });
+                return;
+            }
         }
+        this.setState({
+            selectedDate: allDays[0],
+            allAvailbleTime: [],
+        });
+    };
+
+    fetchSchedule = async (selectedDate) => {
+        if (!selectedDate || !this.props.detailDoctor || this.props.detailDoctor <= 0) return [];
 
         let doctorID = this.props.detailDoctor;
         let dateSelect = moment(selectedDate.value).format("YYYY-MM-DD");
@@ -87,16 +105,62 @@ class DoctorSchedule extends Component {
         try {
             let res = await getScheduleDoctorByDate(doctorID, dateSelect);
             if (res && res.errCode === 0) {
+                let data = this.filterSchedule(res.data);
                 this.setState({
-                    allAvailbleTime: res.data || [],
-                    selectedDate
+                    allAvailbleTime: data,
+                    selectedDate: selectedDate,
                 });
+                return data;
             } else {
                 this.setState({ allAvailbleTime: [] });
+                return [];
             }
         } catch (error) {
             console.error("Lỗi lấy lịch khám:", error);
             this.setState({ allAvailbleTime: [] });
+            return [];
+        }
+    };
+
+    filterSchedule = (data) => {
+        let { language } = this.props;
+        if (data && !_.isEmpty(data)) {
+            let filtered = data.filter((item) => {
+                if (!item.timeTypeData) return false
+
+                let timeStr = language === LANGUAGES.VI ? item.timeTypeData.value_VN : item.timeTypeData.value_EN
+                if (!timeStr) return false
+                let startTimeStr = timeStr.split('-')[0]
+                let startDateTime = new Date(item.date)
+                if (language === LANGUAGES.VI) {
+                    let [hours, minutes] = startTimeStr.split(':').map(Number)
+                    startDateTime.setHours(hours)
+                    startDateTime.setMinutes(minutes)
+                    startDateTime.setSeconds(0)
+                } else {
+                    let [times, merdians] = startTimeStr.split(' ')
+                    let [hours, minutes] = times.split(':').map(Number)
+
+                    let h = hours
+                    if (merdians === 'AM' && h === 12) h = 0
+                    if (merdians === 'PM' && h !== 12) h += 12
+
+                    startDateTime.setHours(h)
+                    startDateTime.setMinutes(minutes)
+                    startDateTime.setSeconds(0)
+                }
+
+                return startDateTime >= new Date();
+            });
+            return filtered;
+        }
+        return [];
+    };
+
+    handleBookingSuccess = () => {
+        let { selectedDate } = this.state;
+        if (selectedDate) {
+            this.fetchSchedule(selectedDate);
         }
     };
 
@@ -105,44 +169,74 @@ class DoctorSchedule extends Component {
         await this.fetchSchedule(selectedDate);
     };
 
+    handleClickScheduleTime = (time) => {
+        this.setState({
+            isOpenModal: true,
+            dataScheduleTimeModal: time
+        });
+    };
+
+    closeBookingModal = () => {
+        this.setState({
+            isOpenModal: false
+        });
+    };
+
     render() {
-        let { allDays, allAvailbleTime, selectedDate } = this.state;
+        let { allDays, allAvailbleTime, selectedDate, isOpenModal, dataScheduleTimeModal, isOutOfHours } = this.state;
         let { language } = this.props;
-        const hasSelected = !!this.state.selectedDate;
+        const hasSelected = !!selectedDate;
+
         return (
-            <div className="doctor-schedule-container">
-                <div className="schedule-list">
-                    <Select
-                        value={selectedDate}
-                        options={allDays}
-                        onChange={this.handleChange}
-                        className={`my-select-container ${hasSelected ? 'highlight-selected' : ''}`}
-                        classNamePrefix="my-select"
-                        placeholder={language === LANGUAGES.VI ? "Chọn ngày" : "Select a date"}
-                    />
-                </div>
-                <div className="schedule-available-time">
-                    <div className="schedule-title">
-                        <span><i className='fas fa-calendar-alt'></i><FormattedMessage id="patient.detail-doctor.schedule" /></span>
+            <>
+                <div className="doctor-schedule-container">
+                    <div className="schedule-list">
+                        <Select
+                            value={selectedDate}
+                            options={allDays}
+                            onChange={this.handleChange}
+                            className={`my-select-container ${hasSelected ? 'highlight-selected' : ''}`}
+                            classNamePrefix="my-select"
+                            placeholder={language === LANGUAGES.VI ? "Chọn ngày" : "Select a date"}
+                        />
                     </div>
-                    <div className="schedule-time">
-                        {allAvailbleTime && allAvailbleTime.length > 0 ? (
-                            allAvailbleTime.map((item, index) => (
-                                <>
-                                    <button key={index} className='schedule-btn'>
+                    <div className="schedule-available-time">
+                        <div className="schedule-title">
+                            <span><i className='fas fa-calendar-alt'></i><FormattedMessage id="patient.detail-doctor.schedule" /></span>
+                        </div>
+                        <div className="schedule-time">
+                            {allAvailbleTime && allAvailbleTime.length > 0 ? (
+                                allAvailbleTime.map((item, index) => (
+                                    <button
+                                        key={index}
+                                        className='schedule-btn'
+                                        onClick={() => this.handleClickScheduleTime(item)}
+                                    >
                                         {language === LANGUAGES.VI ? item.timeTypeData.value_VN : item.timeTypeData.value_EN}
                                     </button>
-                                </>
-                            ))
-                        ) : (
-                            <span><FormattedMessage id="patient.detail-doctor.no-schedule" /></span>
-                        )}
+                                ))
+                            ) : (
+                                <span>
+                                    {isOutOfHours
+                                        ? <FormattedMessage id="patient.detail-doctor.no-schedule" />
+                                        : <FormattedMessage id="patient.detail-doctor.loading" />}
+                                </span>
+                            )}
+                        </div>
+                        {allAvailbleTime && allAvailbleTime.length > 0 &&
+                            <div style={{ fontStyle: "italic" }}>
+                                <i className='far fa-hand-point-up choose-icon'></i>
+                                <FormattedMessage id="patient.detail-doctor.order" />
+                            </div>
+                        }
                     </div>
-                    {allAvailbleTime && allAvailbleTime.length > 0 &&
-                        <div style={{ fontStyle: "italic" }}><i className='far fa-hand-point-up choose-icon'></i><FormattedMessage id="patient.detail-doctor.order" /></div>
-                    }
                 </div>
-            </div>
+                <BookingModal
+                    isOpenModal={isOpenModal}
+                    closeBookingModal={this.closeBookingModal}
+                    dataTime={dataScheduleTimeModal}
+                />
+            </>
         );
     }
 }

@@ -1,0 +1,61 @@
+@mixin content-size {
+    height: 100%;
+    max-width: 1215px;
+    width: 80%;
+    margin: 0;
+}
+
+.doctor-profile-container {
+
+    .infor-doctor {
+        padding: 16px 0;
+        margin: 18px 0;
+        height: 100%;
+
+        .content-wrapper {
+            @include content-size();
+            display: flex;
+        }
+
+        .doctor-img {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 130px;
+            height: 130px;
+            min-width: 130px;
+            border-radius: 50%;
+            margin: 0;
+        }
+
+        .intro-doctor {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+
+            .title-doctor {
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 4px;
+                margin-left: 0;
+                color: #337AB7;
+            }
+
+            .time-booking {
+                font-size: 16px;
+                color: #FEC206;
+                font-weight: 500;
+            }
+
+            .adressbooking {
+                margin-left: 1.6rem;
+            }
+
+            .clinic {
+                color: #555555;
+                font-weight: 500;
+                font-size: 14px;
+            }
+        }
+    }
+}

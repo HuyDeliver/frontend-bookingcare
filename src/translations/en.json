@@ -77,6 +77,19 @@
             "show": "See more",
             "payment": "Patients can pay the cost by",
             "method": "cash or ATM card"
+        },
+        "booking-modal": {
+            "title": "Appointment information",
+            "price": "Examination fee:",
+            "email": "Email",
+            "fullName": "Full name",
+            "phone-number": "Phone Number",
+            "address": "Address",
+            "reason": "Reason for examination",
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "save": "Confirm",
+            "cancel": "Cancel"
         }
     },
     "admin": {

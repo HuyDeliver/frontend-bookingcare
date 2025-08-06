@@ -77,6 +77,19 @@
             "show": "Hiện bảng giá",
             "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức",
             "method": "tiền mặt hoặc thẻ ATM"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch khám bệnh",
+            "price": "Giá khám:",
+            "email": "Địa chỉ email",
+            "fullName": "Họ và Tên",
+            "phone-number": "Số điện thoại",
+            "address": "Địa chỉ liên hệ",
+            "reason": "Lý do khám",
+            "birthday": "Ngầy sinh",
+            "gender": "Giới tính",
+            "save": "Xác nhận",
+            "cancel": "Hủy"
         }
     },
     "admin": {
