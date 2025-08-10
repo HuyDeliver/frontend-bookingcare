@@ -33,7 +33,9 @@ class BookingModal extends Component {
             selectedGender: '',
             doctorID: '',
             timeType: '',
-            patientName: ''
+            patientName: '',
+            timeString: '',
+            dateBooking: ''
         };
     }
 
@@ -57,7 +59,8 @@ class BookingModal extends Component {
         if (this.props.dataTime !== prevProps.dataTime) {
             this.setState({
                 doctorID: this.props.dataTime.doctorID,
-                timeType: this.props.dataTime.timeType
+                timeType: this.props.dataTime.timeType,
+                dateBooking: this.props.dataTime.date
             })
         }
     }
@@ -130,14 +133,36 @@ class BookingModal extends Component {
             birthdayDate: this.state.birthdayDate,
             selectedGender: this.state.selectedGender.value,
             doctorID: this.state.doctorID,
-            timeType: this.state.timeType
+            timeType: this.state.timeType,
+            language: this.props.language,
+            timeString: this.state.timeString,
+            dateBooking: this.state.dateBooking,
+            doctorName: this.builDatanameDoctor()
         })
         if (res && res.errCode === 0) {
             toast.success('Đặt lịch khám bệnh thành công')
             this.toggleModal();
             emitter.emit('BOOKING_SUCCESS')
+        } else {
+            toast.error(res.errMessage)
         }
 
+    }
+    TimeBooking = (time) => {
+        this.setState({
+            timeString: time
+        })
+    }
+    builDatanameDoctor = () => {
+        let { language, dataTime } = this.props
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name = language === LANGUAGES.VI ?
+                `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+                :
+                `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`
+            return name
+        }
+        return ''
     }
     render() {
         let { isOpenModal, dataTime, language } = this.props
@@ -163,6 +188,7 @@ class BookingModal extends Component {
                                 doctorID={doctorID}
                                 dataTime={dataTime}
                                 DoctorInfor={this.DoctorInfor}
+                                TimeBooking={this.TimeBooking}
                             />
                         </div>
                         <div className='price-label mb-3'>

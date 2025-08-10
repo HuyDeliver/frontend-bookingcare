@@ -1,0 +1,44 @@
+.verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.verify-message.success {
+    color: green;
+    font-weight: bold;
+}
+
+.verify-message.error {
+    color: red;
+    font-weight: bold;
+}
+
+.redirect-msg {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Spinner loading */
+.loading-spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

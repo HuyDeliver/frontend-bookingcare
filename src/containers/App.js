@@ -10,9 +10,8 @@ import Home from '../routes/Home';
 import Login from './Auth/Login';
 import System from '../routes/System';
 import HomePage from './Homepage/HomePage';
-import { CustomToastCloseButton } from '../components/CustomToast';
-import ConfirmModal from '../components/ConfirmModal';
 import DetailDoctor from './Homepage/Patient/Doctor/DetailDoctor';
+import VerifyEmail from './Homepage/Patient/VerifyEmail';
 
 
 class App extends Component {
@@ -47,15 +46,9 @@ class App extends Component {
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} component={HomePage} />
                                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                                <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                             </Switch>
                         </span>
-
-                        {/* <ToastContainer
-                            className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
-                            autoClose={false} hideProgressBar={true} pauseOnHover={false}
-                            pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
-                            closeButton={<CustomToastCloseButton />}
-                        /> */}
                         <ToastContainer
                             position='bottom-right'
                             autoClose={2000}

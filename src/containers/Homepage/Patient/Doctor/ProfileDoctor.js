@@ -70,19 +70,20 @@ class ProfileDoctor extends Component {
             month = inputDate.getUTCMonth() + 1;
             year = inputDate.getUTCFullYear();
             time = dataTime.timeTypeData && language === LANGUAGES.VI ? dataTime.timeTypeData.value_VN : dataTime.timeTypeData.value_EN
-        }
-        const formattedDate = `${time} - ${weekday} - ${day}/${month}/${year}`
-        return formattedDate
 
+            const formattedDate = `${time} - ${weekday} - ${day}/${month}/${year}`
+            this.props.TimeBooking(formattedDate)
+            return formattedDate
+        }
+        return ''
     }
+
     propDoctorInfor = (info) => {
         this.props.DoctorInfor(info)
     }
     render() {
         let { dataProfile } = this.state
-        console.log("check", dataProfile)
         let { dataTime, language } = this.props
-        console.log("check datatime", dataTime)
         let nameVi = ''
         let nameEN = ''
         if (dataProfile && dataProfile.positionData) {

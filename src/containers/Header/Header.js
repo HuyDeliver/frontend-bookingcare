@@ -23,7 +23,6 @@ class Header extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        // Cập nhật menu khi userInfo thay đổi
         if (prevProps.userInfo !== this.props.userInfo) {
             this.setMenuByRole();
         }
@@ -71,7 +70,6 @@ class Header extends Component {
     render() {
         const { processLogout, language, userInfo } = this.props;
 
-        // Nếu không có userInfo, không hiển thị header
         if (!userInfo || _.isEmpty(userInfo)) {
             return null;
         }
@@ -81,7 +79,6 @@ class Header extends Component {
 
         return (
             <div className="header-container">
-                {/* Navigation tabs - chỉ hiển thị nếu có menu */}
                 {this.state.menuApp.length > 0 && (
                     <div className="header-tabs-container">
                         <Navigator menus={this.state.menuApp} />
@@ -91,7 +88,6 @@ class Header extends Component {
                 <div className="languages">
                     <span className='welcome'>
                         <FormattedMessage id='homeheader.welcome' />, {displayName}
-                        {/* Hiển thị role để debug (có thể xóa trong production) */}
                         <span className="user-role" style={{ fontSize: '12px', marginLeft: '5px', opacity: 0.7 }}>
                             ({roleID})
                         </span>
@@ -106,7 +102,6 @@ class Header extends Component {
                         {language === LANGUAGES.VI ? 'VN' : 'EN'}
                     </span>
 
-                    {/* Logout button */}
                     <div className="btn btn-logout" onClick={processLogout} title='Log Out'>
                         <i className="fas fa-sign-out-alt"></i>
                     </div>

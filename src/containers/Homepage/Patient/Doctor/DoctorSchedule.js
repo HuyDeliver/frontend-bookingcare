@@ -20,7 +20,6 @@ class DoctorSchedule extends Component {
             selectedDate: null,
             isOpenModal: false,
             dataScheduleTimeModal: {},
-            isOutOfHours: false
         };
     }
 
@@ -183,7 +182,7 @@ class DoctorSchedule extends Component {
     };
 
     render() {
-        let { allDays, allAvailbleTime, selectedDate, isOpenModal, dataScheduleTimeModal, isOutOfHours } = this.state;
+        let { allDays, allAvailbleTime, selectedDate, isOpenModal, dataScheduleTimeModal } = this.state;
         let { language } = this.props;
         const hasSelected = !!selectedDate;
 
@@ -217,9 +216,7 @@ class DoctorSchedule extends Component {
                                 ))
                             ) : (
                                 <span>
-                                    {isOutOfHours
-                                        ? <FormattedMessage id="patient.detail-doctor.no-schedule" />
-                                        : <FormattedMessage id="patient.detail-doctor.loading" />}
+                                    <FormattedMessage id="patient.detail-doctor.no-schedule" />
                                 </span>
                             )}
                         </div>
