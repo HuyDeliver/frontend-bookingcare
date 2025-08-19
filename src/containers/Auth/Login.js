@@ -100,8 +100,8 @@ class Login extends Component {
                                 <span className='login-remind'>Or login with: </span>
                             </div>
                             <div className="col-12 login-icon">
-                                <i class="fab fa-google login-gg"></i>
-                                <i class="fab fa-facebook-f login-fb"></i>
+                                <i className="fab fa-google login-gg"></i>
+                                <i className="fab fa-facebook-f login-fb"></i>
                             </div>
                         </div>
                     </div>

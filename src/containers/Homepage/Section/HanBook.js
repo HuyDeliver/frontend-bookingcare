@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../HomePage.scss'
+import '../HomePage.scss';
 import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
-// Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 class HandBook extends Component {
-
     render() {
         let settings = {
             dots: false,
@@ -19,7 +17,7 @@ class HandBook extends Component {
             slidesToScroll: 2,
         };
         return (
-            <div className="section-content">
+            <div className="handbook-section">
                 <div className="section-container">
                     <div className="section-heading">
                         <span>Cẩm nang</span>
@@ -27,40 +25,40 @@ class HandBook extends Component {
                     </div>
                     <div className="section-body">
                         <Slider {...settings}>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
-                            <div className='section-content'>
+                            <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img HandBook-img"></div>
-                                    <div className='section-slogan'>Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
+                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                         </Slider>
@@ -69,20 +67,13 @@ class HandBook extends Component {
             </div>
         );
     }
-
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
-    };
-};
+const mapStateToProps = state => ({
+    isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-
-    };
-};
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandBook);

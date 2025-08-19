@@ -16,8 +16,8 @@ class BookingInfor extends Component {
     }
 
     async componentDidMount() {
-        if (this.props.doctorID > 0) {
-            this.fetchBookingInforDoctor(this.props.doctorID)
+        if (this.props.detailDoctor > 0) {
+            this.fetchBookingInforDoctor(this.props.detailDoctor)
         }
 
     }
@@ -84,14 +84,16 @@ class BookingInfor extends Component {
                     <div className='Doctor-clinic mb-1'>{bookingInfor && bookingInfor.nameClinic ? bookingInfor.nameClinic : ''}</div>
                     <div className='Doctor-address mb-2'>{bookingInfor && bookingInfor.addressClinic ? bookingInfor.addressClinic : ''}</div>
                 </div>
-                <div className="Doctor-booking-price ">
-                    <div className='Doctor-price-title mt-2 mb-2'><FormattedMessage id="patient.booking-infor.price" /> </div>
-                    {isShowDetail === false ?
+                <div className={isShowDetail === false ? "Doctor-booking-price d-flex align-items-center" : "Doctor-booking-price"}>
+                    <div className='Doctor-price-title mt-2 mb-2 me-1'>
+                        <FormattedMessage id="patient.booking-infor.price" />
+                    </div>
+                    <div>{isShowDetail === false ?
                         <div className="Doctor-price">
-                            <div><FormattedMessage id="patient.booking-infor.price" />&nbsp;
+                            <div>
                                 {bookingInfor && bookingInfor.priceData && language === LANGUAGES.VI ?
                                     <NumberFormat
-                                        value={bookingInfor.priceData?.value_VN}
+                                        value={bookingInfor?.priceData?.value_VN}
                                         displayType='text'
                                         thousandSeparator={true}
                                         renderText={(value) => (
@@ -102,7 +104,7 @@ class BookingInfor extends Component {
                                     />
                                     :
                                     <NumberFormat
-                                        value={bookingInfor.priceData?.value_EN}
+                                        value={bookingInfor?.priceData?.value_EN}
                                         displayType='text'
                                         thousandSeparator={true}
                                         suffix='$'
@@ -118,7 +120,7 @@ class BookingInfor extends Component {
                                         <div><FormattedMessage id="patient.booking-infor.price" /><div className='note'>{bookingInfor && bookingInfor.note ? bookingInfor.note : ''}</div></div>
                                         <div> {bookingInfor && bookingInfor.priceData && language === LANGUAGES.VI ?
                                             <NumberFormat
-                                                value={bookingInfor.priceData?.value_VN}
+                                                value={bookingInfor?.priceData?.value_VN}
                                                 displayType='text'
                                                 thousandSeparator={true}
                                                 renderText={(value) => (
@@ -129,7 +131,7 @@ class BookingInfor extends Component {
                                             />
                                             :
                                             <NumberFormat
-                                                value={bookingInfor.priceData?.value_EN}
+                                                value={bookingInfor?.priceData?.value_EN}
                                                 displayType='text'
                                                 thousandSeparator={true}
                                                 suffix='$'
@@ -146,7 +148,7 @@ class BookingInfor extends Component {
                             <span className='hide-and-show' onClick={() => this.handleShowDetailPrice(false)}><FormattedMessage id="patient.booking-infor.hide" /></span>
                         </>
 
-                    }
+                    }</div>
                 </div>
             </div>
         );

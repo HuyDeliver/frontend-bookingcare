@@ -1,70 +1,67 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../HomePage.scss'
+import '../HomePage.scss';
 import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
-// Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import specialtyImg from '../../../assets/images/co-xuong-khop.jpeg'
+import { getAllSpecialty } from '../../../services/userService';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class Specialty extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSpecialty: [],
+        };
+    }
+
+    async componentDidMount() {
+        let res = await getAllSpecialty();
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataSpecialty: res.data ? res.data : [],
+            });
+        }
+    }
+    handleViewDetailSpecialty = (specialty) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-specialty/${specialty.id}`)
+        }
+    }
 
     render() {
+        let { dataSpecialty } = this.state;
         return (
-            <div className="section-content section-bg">
+            <div className="specialty-section section-bg">
                 <div className="section-container">
                     <div className="section-heading">
-                        <span>Chuyên khoa phổ biến</span>
-                        <button>Xem thêm</button>
+                        <span><FormattedMessage id='homepage.specialty' /></span>
+                        <button><FormattedMessage id='homepage.more-info' /></button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp</div>
-                            </div>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp2</div>
-                            </div>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp3</div>
-                            </div>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp4</div>
-                            </div>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp5</div>
-                            </div>
-                            <div className='section-content'>
-                                <div className="section-img Specialty-img"></div>
-                                <div>Cơ xương khớp6</div>
-                            </div>
+                            {dataSpecialty && dataSpecialty.length > 0 &&
+                                dataSpecialty.map((item, index) => (
+                                    <div className="specialty-item" key={index} onClick={() => this.handleViewDetailSpecialty(item)}>
+                                        <div className="section-img specialty-img" style={{ backgroundImage: `url(${item.image})` }}></div>
+                                        <div className="mt-2" style={{ color: '#5f6163', cursor: 'pointer' }}>{item.name}</div>
+                                    </div>
+                                ))}
                         </Slider>
                     </div>
                 </div>
             </div>
         );
     }
-
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
-    };
-};
+const mapStateToProps = state => ({
+    isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
+const mapDispatchToProps = dispatch => ({});
 
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));

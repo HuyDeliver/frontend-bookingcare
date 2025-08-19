@@ -25,28 +25,29 @@ class DoctorSchedule extends Component {
 
     async componentDidMount() {
         // Thiết lập danh sách ngày
-        this.setArrDay(this.props.language);
+        await this.setArrDay(this.props.language);
 
         // Chờ cho đến khi allDays được thiết lập
         if (this.props.detailDoctor > 0) {
-            await this.checkAndSetFirstAvailableDay();
+            this.checkAndSetFirstAvailableDay();
         }
 
         emitter.on('BOOKING_SUCCESS', this.handleBookingSuccess);
     }
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps, prevState) {
         if (this.props.language !== prevProps.language) {
-            this.setArrDay(this.props.language);
+            await this.setArrDay(this.props.language);
         }
+
+        // Khi đổi bác sĩ hoặc khi allDays vừa được build xong
         if (
-            this.props.detailDoctor !== prevProps.detailDoctor &&
-            this.props.detailDoctor > 0 &&
-            this.state.allDays.length > 0
+            (this.props.detailDoctor !== prevProps.detailDoctor && this.props.detailDoctor > 0 && this.state.allDays.length > 0)
         ) {
             this.checkAndSetFirstAvailableDay();
         }
     }
+
 
     setArrDay = (language) => {
         let allDays = [];
@@ -104,6 +105,7 @@ class DoctorSchedule extends Component {
         try {
             let res = await getScheduleDoctorByDate(doctorID, dateSelect);
             if (res && res.errCode === 0) {
+                console.log("check res", res)
                 let data = this.filterSchedule(res.data);
                 this.setState({
                     allAvailbleTime: data,
@@ -163,9 +165,9 @@ class DoctorSchedule extends Component {
         }
     };
 
-    handleChange = async (selectedDate) => {
+    handleChange = (selectedDate) => {
         this.setState({ selectedDate });
-        await this.fetchSchedule(selectedDate);
+        this.fetchSchedule(selectedDate);
     };
 
     handleClickScheduleTime = (time) => {

@@ -11,7 +11,8 @@ const initialState = {
     scheduleTimes: [],
     prices: [],
     payments: [],
-    province: []
+    province: [],
+    specialties: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -121,6 +122,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_PROVINCE_FAILED:
             state.province = []
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+            state.specialties = action.dataSpecialty
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
+            state.specialties = []
             return {
                 ...state
             }

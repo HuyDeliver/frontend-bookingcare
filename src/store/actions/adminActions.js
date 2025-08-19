@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getAllCodeService, createNewUserService, getAllUsers, delteteUserService, editUserService, getTopDoctorService, getAllDoctors, saveDetailDoctorService } from '../../services/userService';
+import { getAllCodeService, createNewUserService, getAllUsers, delteteUserService, editUserService, getTopDoctorService, getAllDoctors, saveDetailDoctorService, getAllSpecialty } from '../../services/userService';
 import { toast } from 'react-toastify';
 
 const createFetchAPI = (type, code) => {
@@ -197,6 +197,27 @@ export const saveDetailDoctor = (data) => {
         } catch (error) {
             console.log(error)
             dispatch({ type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED })
+        }
+    }
+}
+
+export const fetchAllSpecialty = () => {
+    return async (dispatch) => {
+        try {
+            let res = await getAllSpecialty()
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SPECIALTY_SUCCESS,
+                    dataSpecialty: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SPECIALTY_FAILED
+                })
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch({ type: actionTypes.FETCH_ALL_SPECIALTY_FAILED })
         }
     }
 }

@@ -13,6 +13,7 @@ import RouteProtection from './RouteProtection';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { USER_ROLE } from '../utils';
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 
 class System extends Component {
     componentDidMount() {
@@ -106,13 +107,13 @@ class System extends Component {
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN]} userRole={roleID}>
                                     <ManageClinic />
                                 </RouteProtection>
-                            )} />
+                            )} /> */}
                             <Route path="/system/manage-specialty" render={() => (
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN]} userRole={roleID}>
                                     <ManageSpecialty />
                                 </RouteProtection>
                             )} />
-                            <Route path="/system/manage-handbook" render={() => (
+                            {/* <Route path="/system/manage-handbook" render={() => (
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN]} userRole={roleID}>
                                     <ManageHandbook />
                                 </RouteProtection>

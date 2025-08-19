@@ -8,6 +8,7 @@ import './ProfileDoctor.scss'
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaRegHospital } from "react-icons/fa";
 import _ from 'lodash';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class ProfileDoctor extends Component {
     constructor(props) {
@@ -36,7 +37,6 @@ class ProfileDoctor extends Component {
         this.setState({
             dataProfile: result
         })
-        this.propDoctorInfor(result.Doctor_infor.priceData)
     }
 
     componentDidUpdate(prevProps) {
@@ -72,18 +72,13 @@ class ProfileDoctor extends Component {
             time = dataTime.timeTypeData && language === LANGUAGES.VI ? dataTime.timeTypeData.value_VN : dataTime.timeTypeData.value_EN
 
             const formattedDate = `${time} - ${weekday} - ${day}/${month}/${year}`
-            this.props.TimeBooking(formattedDate)
             return formattedDate
         }
         return ''
     }
-
-    propDoctorInfor = (info) => {
-        this.props.DoctorInfor(info)
-    }
     render() {
         let { dataProfile } = this.state
-        let { dataTime, language } = this.props
+        let { dataTime, language, isShowDs, doctorID } = this.props
         let nameVi = ''
         let nameEN = ''
         if (dataProfile && dataProfile.positionData) {
@@ -95,26 +90,69 @@ class ProfileDoctor extends Component {
                 <div className='infor-doctor'>
                     <div className='content-wrapper'>
                         <div className="doctor-img" style={{ backgroundImage: `url(${dataProfile.image})` }}></div>
-                        <div className="intro-doctor">
-                            <div className='title-doctor'>
-                                {language === LANGUAGES.VI ? nameVi : nameEN}
-                            </div>
-                            <div className="time-booking">
-                                <div style={{ marginBottom: '4px' }} >
-                                    <span><IoCalendarOutline color='#484848' style={{ marginBottom: '4px' }} /></span> &nbsp;
-                                    <span>{this.getTimeToday(dataTime, language)}</span>
+                        {isShowDs === false ?
+                            <div className="intro-doctor">
+                                <div className='title-doctor'>
+                                    {language === LANGUAGES.VI ? nameVi : nameEN}
+                                </div>
+                                <div className="time-booking">
+                                    <div style={{ marginBottom: '4px' }} >
+                                        <span><IoCalendarOutline color='#484848' style={{ marginBottom: '4px' }} /></span> &nbsp;
+                                        <span>{this.getTimeToday(dataTime, language)}</span>
+                                    </div>
+                                </div>
+                                <div className='d-flex align-items-center clinic'>
+                                    <FaRegHospital color='#484848' style={{ marginBottom: '4px', marginRight: '8px' }} />
+                                    {dataProfile && dataProfile.Doctor_infor && dataProfile.Doctor_infor.nameClinic ? dataProfile.Doctor_infor.nameClinic : ''}
+                                </div>
+                                <div className='adressbooking'>
+                                    {dataProfile && dataProfile.Doctor_infor && dataProfile.Doctor_infor.addressClinic ? dataProfile.Doctor_infor.addressClinic : ''}
                                 </div>
                             </div>
-                            <div className='d-flex align-items-center clinic'>
-                                <FaRegHospital color='#484848' style={{ marginBottom: '4px', marginRight: '8px' }} />
-                                {dataProfile && dataProfile.Doctor_infor && dataProfile.Doctor_infor.nameClinic ? dataProfile.Doctor_infor.nameClinic : ''}
+                            :
+                            <div className='intro-doctor'>
+                                <div className='title-doctor'>
+                                    {language === LANGUAGES.VI ? nameVi : nameEN}
+                                </div>
+                                {dataProfile && dataProfile.Markdown && dataProfile.Markdown.description &&
+                                    <div className='job-title'>{dataProfile.Markdown.description}</div>
+                                }
                             </div>
-                            <div className='adressbooking'>
-                                {dataProfile && dataProfile.Doctor_infor && dataProfile.Doctor_infor.addressClinic ? dataProfile.Doctor_infor.addressClinic : ''}
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
+                {isShowDs === false ?
+                    <div className='price-label mb-3'>
+                        <span>
+                            {dataProfile && dataProfile.Doctor_infor && dataProfile.Doctor_infor.priceData && language === LANGUAGES.VI ?
+                                <>
+                                    <strong><FormattedMessage id='patient.booking-modal.price' /></strong> &nbsp;
+                                    <NumberFormat
+                                        value={dataProfile.Doctor_infor?.priceData.value_VN}
+                                        displayType='text'
+                                        thousandSeparator={true}
+                                        renderText={(value) => (
+                                            <span>
+                                                {value}<sup>đ</sup>
+                                            </span>
+                                        )}
+                                    />
+                                </>
+                                :
+                                <>
+                                    <strong><FormattedMessage id='patient.booking-modal.price' /></strong> &nbsp;
+                                    <NumberFormat
+                                        value={dataProfile.Doctor_infor?.priceData.value_EN}
+                                        displayType='text'
+                                        thousandSeparator={true}
+                                        suffix='$'
+                                    />
+                                </>
+                            }</span>
+                    </div>
+
+                    : <Link to={`/detail-doctor/${doctorID}`} className='more-profile'>Xem thêm</Link>
+                }
             </div >
         );
     }

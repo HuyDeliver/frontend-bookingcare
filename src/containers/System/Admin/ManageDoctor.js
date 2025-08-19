@@ -36,6 +36,8 @@ class ManageDoctor
             nameClinic: '',
             addressClinic: '',
             note: '',
+            listSpecialties: [],
+            selectedSpecialty: ''
         }
     }
     async componentDidMount() {
@@ -43,6 +45,7 @@ class ManageDoctor
         this.props.fetchPriceDoctor()
         this.props.fetchPaymentDoctor()
         this.props.fetchProvinceDoctor()
+        this.props.fetchAllSpecialty()
     }
 
     updateSelectedList = (dataMap) => {
@@ -59,9 +62,10 @@ class ManageDoctor
             listPrices: { data: this.props.prices, type: 'PRICE' },
             listPayment: { data: this.props.payments, type: 'PAYMENT' },
             listProvince: { data: this.props.provinces, type: 'PROVINCE' },
+            listSpecialties: { data: this.props.specialties, type: 'SPECIALTY' }
         }
         if (prevProps.allDoctors !== this.props.allDoctors || prevProps.language !== this.props.language || prevProps.prices !== this.props.prices ||
-            prevProps.payments !== this.props.payments || prevProps.provinces !== this.props.provinces
+            prevProps.payments !== this.props.payments || prevProps.provinces !== this.props.provinces || prevProps.specialties !== this.props.specialties
         ) {
             this.updateSelectedList(dataMap)
         }
@@ -97,6 +101,11 @@ class ManageDoctor
                     object.value = item.key
                     result.push(object)
                 }
+                if (type === 'SPECIALTY') {
+                    object.label = item.name
+                    object.value = item.id
+                    result.push(object)
+                }
 
             })
         }
@@ -104,12 +113,12 @@ class ManageDoctor
     }
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor })
-        let { listPayment, listPrices, listProvince } = this.state
+        let { listPayment, listPrices, listProvince, listSpecialties } = this.state
         let res = await getDetailDoctorService(selectedDoctor.value)
-        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+        if (res && res.errCode === 0 && res.data && res.data.Markdown && res.data.Doctor_infor) {
             let markdown = res.data.Markdown
             let detail = res.data.Doctor_infor
-            let selectedPrice = '', selectedPayment = '', selectedProvince = ''
+            let selectedPrice = '', selectedPayment = '', selectedProvince = '', selectedSpecialty = ''
             if (detail) {
                 selectedPrice = listPrices.find(item => {
                     return item && item.value === detail.priceId
@@ -120,6 +129,9 @@ class ManageDoctor
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === detail.provinceId
                 })
+                selectedSpecialty = listSpecialties.find(item => {
+                    return item && item.value === detail.specialtyId
+                })
             }
 
             this.setState({
@@ -129,6 +141,7 @@ class ManageDoctor
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
                 selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty,
                 nameClinic: detail.nameClinic,
                 addressClinic: detail.addressClinic,
                 note: detail.note,
@@ -139,6 +152,12 @@ class ManageDoctor
                 contentMarkdown: '',
                 contentHTML: '',
                 description: '',
+                selectedPrice: '',
+                selectedPayment: '',
+                selectedProvince: '',
+                nameClinic: '',
+                addressClinic: '',
+                note: '',
                 hasOlData: false,
             })
         }
@@ -162,12 +181,38 @@ class ManageDoctor
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
             note: this.state.note,
+            selectedSpecialty: this.state.selectedSpecialty.value
         })
         this.setState({
             contentMarkdown: '',
             contentHTML: '',
             selectedDoctor: '',
             description: '',
+            doctorId: '',
+            selectedPrice: '',
+            selectedPayment: '',
+            selectedProvince: '',
+            nameClinic: '',
+            addressClinic: '',
+            note: '',
+            selectedSpecialty: '',
+            hasOlData: false,
+        })
+    }
+    backToCreateDoctor = () => {
+        this.setState({
+            contentMarkdown: '',
+            contentHTML: '',
+            selectedDoctor: '',
+            description: '',
+            doctorId: '',
+            selectedPrice: '',
+            selectedPayment: '',
+            selectedProvince: '',
+            nameClinic: '',
+            addressClinic: '',
+            note: '',
+            selectedSpecialty: '',
             hasOlData: false,
         })
     }
@@ -247,6 +292,15 @@ class ManageDoctor
                                 value={this.state.note}
                             />
                         </div>
+                        <div className="col-4 form-group mt-3">
+                            <label className='mb-2' for=""><FormattedMessage id="admin.manage-doctor.specialty" /></label>
+                            <Select
+                                value={this.state.selectedSpecialty}
+                                onChange={(options) => this.handleSelectedChange(options, 'selectedSpecialty')}
+                                options={this.state.listSpecialties}
+                                placeholder={<FormattedMessage id="admin.manage-doctor.choose" />}
+                            />
+                        </div>
                         <div className="col-12 mt-5">
                             <MdEditor
                                 style={{ height: '500px' }}
@@ -259,6 +313,12 @@ class ManageDoctor
                             <button className={this.state.hasOlData === true ? 'btn btn-primary' : 'btn btn-success'}
                                 onClick={() => this.handleSaveContent()}
                             >{this.state.hasOlData === true ? <span><FormattedMessage id="admin.manage-doctor.save" /></span> : <span><FormattedMessage id="admin.manage-doctor.add" /></span>} </button>
+                            {this.state.hasOlData === true &&
+                                <button
+                                    className='btn btn-warning ms-2'
+                                    onClick={() => this.backToCreateDoctor()}
+                                >Back</button>
+                            }
                         </div>
                     </div>
                 </div >
@@ -272,7 +332,8 @@ const mapStateToProps = state => {
         allDoctors: state.admin.allDoctors,
         prices: state.admin.prices,
         payments: state.admin.payments,
-        provinces: state.admin.province
+        provinces: state.admin.province,
+        specialties: state.admin.specialties
     };
 };
 
@@ -283,6 +344,7 @@ const mapDispatchToProps = dispatch => {
         fetchPriceDoctor: () => dispatch(actions.fetchPriceStart()),
         fetchPaymentDoctor: () => dispatch(actions.fetchPaymentStart()),
         fetchProvinceDoctor: () => dispatch(actions.fetchProvinceStart()),
+        fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty())
     };
 };
 

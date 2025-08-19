@@ -34,7 +34,6 @@ class BookingModal extends Component {
             doctorID: '',
             timeType: '',
             patientName: '',
-            timeString: '',
             dateBooking: ''
         };
     }
@@ -135,7 +134,6 @@ class BookingModal extends Component {
             doctorID: this.state.doctorID,
             timeType: this.state.timeType,
             language: this.props.language,
-            timeString: this.state.timeString,
             dateBooking: this.state.dateBooking,
             doctorName: this.builDatanameDoctor()
         })
@@ -147,11 +145,6 @@ class BookingModal extends Component {
             toast.error(res.errMessage)
         }
 
-    }
-    TimeBooking = (time) => {
-        this.setState({
-            timeString: time
-        })
     }
     builDatanameDoctor = () => {
         let { language, dataTime } = this.props
@@ -187,33 +180,9 @@ class BookingModal extends Component {
                             <ProfileDoctor
                                 doctorID={doctorID}
                                 dataTime={dataTime}
-                                DoctorInfor={this.DoctorInfor}
-                                TimeBooking={this.TimeBooking}
+                                isShowDs={false}
                             />
                         </div>
-                        <div className='price-label mb-3'>
-                            <strong><FormattedMessage id='patient.booking-modal.price' /></strong>&nbsp;
-                            <span>
-                                {price && language === LANGUAGES.VI ?
-                                    <NumberFormat
-                                        value={price.value_VN}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        renderText={(value) => (
-                                            <span>
-                                                {value}<sup>đ</sup>
-                                            </span>
-                                        )}
-                                    /> :
-                                    <NumberFormat
-                                        value={price.value_EN}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix='$'
-                                    />
-                                }</span>
-                        </div>
-
                         <Form>
                             <Row className='mb-3'>
                                 <Col md={6}>

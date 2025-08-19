@@ -6,7 +6,7 @@ import { getDetailDoctorService } from '../../../../services/userService';
 import { LANGUAGES } from '../../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import BookingInfor from './BookingInfor';
-
+import HomeFooter from '../../HomeFooter'
 class DetailDoctor extends Component {
     constructor(props) {
         super(props)
@@ -77,6 +77,7 @@ class DetailDoctor extends Component {
                     </div>
                     <div className="comment"></div>
                 </div>
+                <HomeFooter />
             </>
 
         );
