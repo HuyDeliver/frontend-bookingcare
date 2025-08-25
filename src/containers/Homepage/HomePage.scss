@@ -99,29 +99,25 @@
             .doctor-item {
                 padding: 5px;
 
-                .section-img {
+                .section-img>img {
                     cursor: pointer;
                     width: 100%;
                     max-width: 100%;
                     height: 150px;
-                    background-position: center center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-color: #eee;
+                    background-color: white;
                     margin-bottom: 4px;
+                    border: 1px solid rgba(242, 241, 241, 1);
+                    object-fit: contain;
+                    object-position: center;
+                }
 
-                    &.medical-img {
-                        background-image: url('../../assets/images/benh-vien-thu-cuc.jpeg');
-                    }
+                .section-name {
+                    color: #5f6163;
+                    cursor: pointer;
+                    padding: 0.4rem;
 
-                    &.handbook-img {
-                        background-image: url('../../assets/images/handbook.png');
-                    }
-
-                    &.doctor-img {
-                        width: 120px;
-                        height: 120px;
-                        border-radius: 50%;
+                    &:hover {
+                        color: #45c3d2;
                     }
                 }
             }
@@ -159,6 +155,15 @@
     }
 }
 
+.doctor-img>img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: contain;
+    object-position: center;
+}
+
 .section-about {
     margin-bottom: 40px;
     display: flex;
@@ -183,6 +188,7 @@
 .home-footer {
     text-align: center;
     padding: 22px;
+    background-color: rgba(100, 185, 229, 1);
 
     p {
         margin: auto;

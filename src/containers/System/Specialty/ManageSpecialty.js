@@ -111,7 +111,6 @@ class ManageSpecialty extends Component {
 
     }
     handleEditSpecialty = async (item) => {
-        console.log(item)
         let res = await getDetailSpecialty({
             id: item.id,
             location: 'NOTAKE'
@@ -140,11 +139,11 @@ class ManageSpecialty extends Component {
                                 Quản lý chuyên khoa
                             </div>
                             <div className="col-6 form-group">
-                                <label for="" className='mb-2'>Tên chuyên khoa</label>
+                                <label htmlFor="" className='mb-2'>Tên chuyên khoa</label>
                                 <input type="text" value={this.state.name} className='form-control p-2' onChange={(e) => this.handleOnchangeInput(e, 'name')} />
                             </div>
                             <div className="col-6">
-                                <label for="image" className=""><FormattedMessage id="manage-user.image" /></label>
+                                <label htmlFor="image" className=""><FormattedMessage id="manage-user.image" /></label>
                                 <div className='upload-img-splt'>
                                     <input type="file" id="preview-img" hidden
                                         onChange={(e) => this.handleOnchangeImg(e)}

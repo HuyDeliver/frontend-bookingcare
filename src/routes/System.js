@@ -14,6 +14,8 @@ import _ from 'lodash';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { USER_ROLE } from '../utils';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageClinic from '../containers/System/Clinic/ManageClinic';
+import ManagePatient from '../containers/System/Doctor/ManagePatient';
 
 class System extends Component {
     componentDidMount() {
@@ -103,11 +105,11 @@ class System extends Component {
                                     <ManageDoctor />
                                 </RouteProtection>
                             )} />
-                            {/* <Route path="/system/manage-clinic" render={() => (
+                            <Route path="/system/manage-clinic" render={() => (
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN]} userRole={roleID}>
                                     <ManageClinic />
                                 </RouteProtection>
-                            )} /> */}
+                            )} />
                             <Route path="/system/manage-specialty" render={() => (
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN]} userRole={roleID}>
                                     <ManageSpecialty />
@@ -123,6 +125,11 @@ class System extends Component {
                             <Route path="/system/manage-schedule" render={() => (
                                 <RouteProtection allowedRoles={[USER_ROLE.ADMIN, USER_ROLE.DOCTOR]} userRole={roleID}>
                                     <ManageSchedule />
+                                </RouteProtection>
+                            )} />
+                            <Route path="/system/manage-patient" render={() => (
+                                <RouteProtection allowedRoles={[USER_ROLE.DOCTOR]} userRole={roleID}>
+                                    <ManagePatient />
                                 </RouteProtection>
                             )} />
 

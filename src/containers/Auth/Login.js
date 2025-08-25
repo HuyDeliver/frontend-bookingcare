@@ -72,13 +72,13 @@ class Login extends Component {
                         <div className="login-content row">
                             <div className="col-12 text-center"><h1>Login</h1></div>
                             <div className="col-12 form-group  form-input">
-                                <label for="">Username:</label>
+                                <label htmlFor="">Username:</label>
                                 <input type="text" value={this.state.username} className="form-control" placeholder='Enter your name'
                                     onChange={(e) => this.handleOnchangeInput(e)}
                                 />
                             </div>
                             <div className="col-12 form-group  form-input">
-                                <label for="">Password:</label>
+                                <label htmlFor="">Password:</label>
                                 <div className="custom-input">
                                     <input type={this.state.isShowPass ? 'text' : 'password'} value={this.state.password} className="form-control" placeholder='Enter your password'
                                         onChange={(e) => this.handleOnchangePass(e)}

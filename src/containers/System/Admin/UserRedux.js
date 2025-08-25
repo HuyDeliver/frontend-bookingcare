@@ -216,7 +216,7 @@ class UserRedux extends Component {
                                     <div className="col-12 mt-3"><FormattedMessage id="manage-user.add" /></div>
                                     <div className='col-12'>{isLoading ? 'isLoading' : ''}</div>
                                     <div className="col-md-6">
-                                        <label for="email" className="form-label"><FormattedMessage id="manage-user.email" /></label>
+                                        <label htmlFor="email" className="form-label"><FormattedMessage id="manage-user.email" /></label>
                                         <input type="email" className="form-control" name="email"
                                             onChange={(e) => this.handleOnchangeInput(e, 'email')}
                                             value={email}
@@ -224,7 +224,7 @@ class UserRedux extends Component {
                                         />
                                     </div>
                                     <div className="col-md-6">
-                                        <label for="password" className="form-label"><FormattedMessage id="manage-user.password" /></label>
+                                        <label htmlFor="password" className="form-label"><FormattedMessage id="manage-user.password" /></label>
                                         <input type="password" className="form-control" name="password"
                                             onChange={(e) => this.handleOnchangeInput(e, 'password')}
                                             value={password}
@@ -232,28 +232,28 @@ class UserRedux extends Component {
                                         />
                                     </div>
                                     <div className="col-md-6">
-                                        <label for="firstname" className="form-label"><FormattedMessage id="manage-user.first-name" /></label>
+                                        <label htmlFor="firstname" className="form-label"><FormattedMessage id="manage-user.first-name" /></label>
                                         <input type="text" className="form-control" name="firstName"
                                             onChange={(e) => this.handleOnchangeInput(e, 'firstName')}
                                             value={firstName}
                                         />
                                     </div>
                                     <div className="col-md-6">
-                                        <label for="lastname" className="form-label"><FormattedMessage id="manage-user.last-name" /></label>
+                                        <label htmlFor="lastname" className="form-label"><FormattedMessage id="manage-user.last-name" /></label>
                                         <input type="text" className="form-control" name="lastName"
                                             onChange={(e) => this.handleOnchangeInput(e, 'lastName')}
                                             value={lastName}
                                         />
                                     </div>
                                     <div className="col-4">
-                                        <label for="Address" className="form-label"><FormattedMessage id="manage-user.address" /></label>
+                                        <label htmlFor="Address" className="form-label"><FormattedMessage id="manage-user.address" /></label>
                                         <input type="text" className="form-control" name="address" placeholder="1234 Main St"
                                             onChange={(e) => this.handleOnchangeInput(e, 'address')}
                                             value={address}
                                         />
                                     </div>
                                     <div className="col-4">
-                                        <label for="position" className="form-label"><FormattedMessage id="manage-user.position" /></label>
+                                        <label htmlFor="position" className="form-label"><FormattedMessage id="manage-user.position" /></label>
                                         <select name="position" className="form-select"
                                             onChange={(e) => this.handleOnchangeInput(e, 'position')}
                                             value={position}
@@ -268,14 +268,14 @@ class UserRedux extends Component {
                                         </select>
                                     </div>
                                     <div className="col-md-4">
-                                        <label for="phonenumber" className="form-label"><FormattedMessage id="manage-user.phone-number" /></label>
+                                        <label htmlFor="phonenumber" className="form-label"><FormattedMessage id="manage-user.phone-number" /></label>
                                         <input type="text" className="form-control" name="phoneNumber"
                                             onChange={(e) => this.handleOnchangeInput(e, 'phoneNumber')}
                                             value={phoneNumber}
                                         />
                                     </div>
                                     <div className="col-md-4">
-                                        <label for="gender" className="form-label"><FormattedMessage id="manage-user.gender" /></label>
+                                        <label htmlFor="gender" className="form-label"><FormattedMessage id="manage-user.gender" /></label>
                                         <select name="gender" className="form-select"
                                             onChange={(e) => this.handleOnchangeInput(e, 'gender')}
                                             value={gender}
@@ -290,7 +290,7 @@ class UserRedux extends Component {
                                         </select>
                                     </div>
                                     <div className="col-md-4">
-                                        <label for="role" className="form-label"><FormattedMessage id="manage-user.role" /></label>
+                                        <label htmlFor="role" className="form-label"><FormattedMessage id="manage-user.role" /></label>
                                         <select name="role" className="form-select"
                                             onChange={(e) => this.handleOnchangeInput(e, 'role')}
                                             value={role}
@@ -305,7 +305,7 @@ class UserRedux extends Component {
                                         </select>
                                     </div>
                                     <div className="col-md-4">
-                                        <label for="image" className="form-label"><FormattedMessage id="manage-user.image" /></label>
+                                        <label htmlFor="image" className="form-label"><FormattedMessage id="manage-user.image" /></label>
                                         <div className='upload-img'>
                                             <input type="file" id="preview-img" hidden
                                                 onChange={(e) => this.handleOnchangeImg(e)}

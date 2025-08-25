@@ -37,7 +37,9 @@ class ManageDoctor
             addressClinic: '',
             note: '',
             listSpecialties: [],
-            selectedSpecialty: ''
+            selectedSpecialty: '',
+            selectedClinic: '',
+            listClinics: []
         }
     }
     async componentDidMount() {
@@ -46,6 +48,7 @@ class ManageDoctor
         this.props.fetchPaymentDoctor()
         this.props.fetchProvinceDoctor()
         this.props.fetchAllSpecialty()
+        this.props.fetchAllClinic()
     }
 
     updateSelectedList = (dataMap) => {
@@ -62,10 +65,11 @@ class ManageDoctor
             listPrices: { data: this.props.prices, type: 'PRICE' },
             listPayment: { data: this.props.payments, type: 'PAYMENT' },
             listProvince: { data: this.props.provinces, type: 'PROVINCE' },
-            listSpecialties: { data: this.props.specialties, type: 'SPECIALTY' }
+            listSpecialties: { data: this.props.specialties, type: 'SPECIALTY' },
+            listClinics: { data: this.props.clinics, type: 'CLINIC' }
         }
         if (prevProps.allDoctors !== this.props.allDoctors || prevProps.language !== this.props.language || prevProps.prices !== this.props.prices ||
-            prevProps.payments !== this.props.payments || prevProps.provinces !== this.props.provinces || prevProps.specialties !== this.props.specialties
+            prevProps.payments !== this.props.payments || prevProps.provinces !== this.props.provinces || prevProps.specialties !== this.props.specialties || prevProps.clinics !== this.props.clinics
         ) {
             this.updateSelectedList(dataMap)
         }
@@ -101,7 +105,7 @@ class ManageDoctor
                     object.value = item.key
                     result.push(object)
                 }
-                if (type === 'SPECIALTY') {
+                if (type === 'SPECIALTY' || type === 'CLINIC') {
                     object.label = item.name
                     object.value = item.id
                     result.push(object)
@@ -113,12 +117,12 @@ class ManageDoctor
     }
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor })
-        let { listPayment, listPrices, listProvince, listSpecialties } = this.state
+        let { listPayment, listPrices, listProvince, listSpecialties, listClinics } = this.state
         let res = await getDetailDoctorService(selectedDoctor.value)
         if (res && res.errCode === 0 && res.data && res.data.Markdown && res.data.Doctor_infor) {
             let markdown = res.data.Markdown
             let detail = res.data.Doctor_infor
-            let selectedPrice = '', selectedPayment = '', selectedProvince = '', selectedSpecialty = ''
+            let selectedPrice = '', selectedPayment = '', selectedProvince = '', selectedSpecialty = '', selectedClinic = ''
             if (detail) {
                 selectedPrice = listPrices.find(item => {
                     return item && item.value === detail.priceId
@@ -132,6 +136,9 @@ class ManageDoctor
                 selectedSpecialty = listSpecialties.find(item => {
                     return item && item.value === detail.specialtyId
                 })
+                selectedClinic = listClinics.find(item => {
+                    return item && item.value === detail.clinicId
+                })
             }
 
             this.setState({
@@ -142,6 +149,7 @@ class ManageDoctor
                 selectedPayment: selectedPayment,
                 selectedProvince: selectedProvince,
                 selectedSpecialty: selectedSpecialty,
+                selectedClinic: selectedClinic,
                 nameClinic: detail.nameClinic,
                 addressClinic: detail.addressClinic,
                 note: detail.note,
@@ -155,6 +163,7 @@ class ManageDoctor
                 selectedPrice: '',
                 selectedPayment: '',
                 selectedProvince: '',
+                selectedClinic: '',
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
@@ -178,6 +187,7 @@ class ManageDoctor
             selectedPrice: this.state.selectedPrice.value,
             selectedPayment: this.state.selectedPayment.value,
             selectedProvince: this.state.selectedProvince.value,
+            selectedClinic: this.state.selectedClinic.value,
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
             note: this.state.note,
@@ -192,6 +202,7 @@ class ManageDoctor
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
+            selectedClinic: '',
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -213,6 +224,7 @@ class ManageDoctor
             addressClinic: '',
             note: '',
             selectedSpecialty: '',
+            selectedClinic: '',
             hasOlData: false,
         })
     }
@@ -301,6 +313,15 @@ class ManageDoctor
                                 placeholder={<FormattedMessage id="admin.manage-doctor.choose" />}
                             />
                         </div>
+                        <div className="col-4 form-group mt-3">
+                            <label className='mb-2' for=""><FormattedMessage id="admin.manage-doctor.specialty" /></label>
+                            <Select
+                                value={this.state.selectedClinic}
+                                onChange={(options) => this.handleSelectedChange(options, 'selectedClinic')}
+                                options={this.state.listClinics}
+                                placeholder={<FormattedMessage id="admin.manage-doctor.choose" />}
+                            />
+                        </div>
                         <div className="col-12 mt-5">
                             <MdEditor
                                 style={{ height: '500px' }}
@@ -333,7 +354,8 @@ const mapStateToProps = state => {
         prices: state.admin.prices,
         payments: state.admin.payments,
         provinces: state.admin.province,
-        specialties: state.admin.specialties
+        specialties: state.admin.specialties,
+        clinics: state.admin.clinics
     };
 };
 
@@ -344,7 +366,8 @@ const mapDispatchToProps = dispatch => {
         fetchPriceDoctor: () => dispatch(actions.fetchPriceStart()),
         fetchPaymentDoctor: () => dispatch(actions.fetchPaymentStart()),
         fetchProvinceDoctor: () => dispatch(actions.fetchProvinceStart()),
-        fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty())
+        fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
+        fetchAllClinic: () => dispatch(actions.fetchAllClinic())
     };
 };
 

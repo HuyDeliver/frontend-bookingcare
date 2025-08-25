@@ -1,0 +1,177 @@
+.detail-clinic-container {
+    .clinic-introdution {
+        position: relative;
+        padding-top: 21%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .clinic-title {
+            position: absolute;
+            bottom: -3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 79%;
+            min-height: 100px; // dùng min-height thay vì height
+            box-shadow: 0px 1px 6px rgba(32, 33, 36, 0.28);
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+
+            .title-flex {
+                display: flex;
+            }
+
+            .clinic-img>img {
+                height: 8em;
+                width: 8em;
+                object-fit: contain;
+            }
+
+            .clinic-info {
+                display: flex;
+                flex-direction: column;
+
+                .clinic-name {
+                    color: rgba(40, 49, 63, 1);
+                    font-size: 26px;
+                    font-weight: 600;
+                }
+
+                .clinic-address {
+                    color: rgba(40, 49, 63, 1);
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .detail-clinic {
+        max-width: 1320px;
+        width: 100%;
+        padding-right: 4.8rem;
+        padding-left: 4.8rem;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 7rem;
+        margin-bottom: 7rem;
+
+        .detail-description {
+            font-size: 18px;
+
+            h3 {
+                font-size: 18px;
+                color: #337AB7;
+                font-weight: 600;
+                margin-bottom: 1.6rem;
+                margin-top: 3rem;
+            }
+
+            p {
+                font-weight: 500;
+            }
+
+            p:has(img),
+            p:has(img)+p,
+            p+p:has(img) {
+                display: flex;
+                justify-content: center;
+            }
+
+            p:has(img)+p {
+                margin-bottom: 3rem;
+            }
+        }
+    }
+
+    .doctor-with-clinic {
+        height: 100%;
+        min-height: 400px;
+
+        .heading {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            margin-left: -9px;
+            margin-right: -9px;
+        }
+
+        hr {
+            border: 0px solid #e7e5e5;
+            margin: 0 -9px 10px -9px;
+            ;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1195px;
+
+            .doctor-bg {
+                background-color: rgba(255, 255, 255, 1);
+                border-radius: .5rem;
+                box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+                padding: .625rem;
+                margin-bottom: 1rem;
+
+                .doctor-infor {
+                    border-right: 1px solid #eee;
+                }
+
+                .doctor-booking {
+                    .doctor-schedule {
+                        padding: 1.1rem 0 0.3rem 0.3rem;
+                        border-bottom: 1px solid #eee;
+                    }
+
+                    .booking-info {
+                        margin-left: -1.1rem;
+                        padding: 1rem 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-doctor {
+        min-height: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .clinic-title {
+        width: 90%;
+        min-height: 80px;
+        padding: 0.8rem;
+    }
+
+    .clinic-info .clinic-name {
+        font-size: 20px;
+    }
+
+    .clinic-info .clinic-address {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .clinic-title {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto; // co theo nội dung
+        padding: 0.6rem;
+    }
+
+    .clinic-img>img {
+        height: 5em;
+        width: 5em;
+    }
+
+    .clinic-info .clinic-name {
+        font-size: 18px;
+    }
+
+    .clinic-info .clinic-address {
+        font-size: 14px;
+    }
+}

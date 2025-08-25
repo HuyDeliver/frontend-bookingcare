@@ -13,6 +13,7 @@ import HomePage from './Homepage/HomePage';
 import DetailDoctor from './Homepage/Patient/Doctor/DetailDoctor';
 import VerifyEmail from './Homepage/Patient/VerifyEmail';
 import DetailSpecialty from './Homepage/Patient/Specialty/DetailSpecialty';
+import DetailClinic from './Homepage/Patient/Clinic/DetailClinic';
 
 
 class App extends Component {
@@ -48,6 +49,7 @@ class App extends Component {
                                 <Route path={path.HOMEPAGE} component={HomePage} />
                                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                                 <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+                                <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
                                 <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                             </Switch>
                         </span>

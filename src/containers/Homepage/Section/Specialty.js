@@ -45,8 +45,8 @@ class Specialty extends Component {
                             {dataSpecialty && dataSpecialty.length > 0 &&
                                 dataSpecialty.map((item, index) => (
                                     <div className="specialty-item" key={index} onClick={() => this.handleViewDetailSpecialty(item)}>
-                                        <div className="section-img specialty-img" style={{ backgroundImage: `url(${item.image})` }}></div>
-                                        <div className="mt-2" style={{ color: '#5f6163', cursor: 'pointer' }}>{item.name}</div>
+                                        <div className="section-img specialty-img"><img src={item.image} alt="" /></div>
+                                        <div className="mt-2 text-center section-name">{item.name}</div>
                                     </div>
                                 ))}
                         </Slider>

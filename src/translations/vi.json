@@ -36,7 +36,8 @@
             "manage-handbook": "Quản lý Cẩm nang"
         },
         "doctor": {
-            "manage-schedule": "Quản lý kế hoạch khám bệnh"
+            "manage-schedule": "Quản lý kế hoạch khám bệnh",
+            "manage-patient": "Quản lý bệnh nhân khám bệnh"
         }
     },
     "manage-user": {
@@ -83,11 +84,12 @@
             "title": "Thông tin đặt lịch khám bệnh",
             "price": "Giá khám:",
             "email": "Địa chỉ email",
-            "fullName": "Họ và Tên",
+            "firstName": "Tên",
+            "lastName": "Họ",
             "phone-number": "Số điện thoại",
             "address": "Địa chỉ liên hệ",
             "reason": "Lý do khám",
-            "birthday": "Ngầy sinh",
+            "birthday": "Ngày sinh",
             "gender": "Giới tính",
             "save": "Xác nhận",
             "cancel": "Hủy"

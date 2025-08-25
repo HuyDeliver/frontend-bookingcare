@@ -105,7 +105,6 @@ class DoctorSchedule extends Component {
         try {
             let res = await getScheduleDoctorByDate(doctorID, dateSelect);
             if (res && res.errCode === 0) {
-                console.log("check res", res)
                 let data = this.filterSchedule(res.data);
                 this.setState({
                     allAvailbleTime: data,

@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import image from '../../../assets/images/handbook.png'
 class HandBook extends Component {
     render() {
         let settings = {
@@ -27,37 +27,37 @@ class HandBook extends Component {
                         <Slider {...settings}>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>
                             <div className="handbook-item">
                                 <div className="section-handbook">
-                                    <div className="section-img handbook-img"></div>
+                                    <div className="section-img handbook-img"><img src={image} alt="" /></div>
                                     <div className="section-slogan">Cắt lợi ở đâu tốt và uy tín tại Hà Nội</div>
                                 </div>
                             </div>

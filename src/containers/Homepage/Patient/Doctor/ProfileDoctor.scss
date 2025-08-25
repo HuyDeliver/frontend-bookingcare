@@ -6,6 +6,7 @@
 }
 
 .doctor-profile-container {
+    position: relative;
 
     .infor-doctor {
         padding: 16px 0;
@@ -36,7 +37,7 @@
 
             .title-doctor {
                 font-size: 18px;
-                font-weight: 500;
+                font-weight: 600;
                 margin-bottom: 4px;
                 margin-left: 0;
                 color: #337AB7;
@@ -66,6 +67,8 @@
     }
 
     .more-profile {
+        position: absolute;
+        top: 161px;
         margin-left: 2rem;
         text-decoration: none;
         cursor: pointer;

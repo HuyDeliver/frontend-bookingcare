@@ -89,14 +89,6 @@ class ManageSchedule extends Component {
     }
     handleSaveInfo = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state
-        if (!currentDate) {
-            toast.error('Invalid date !!!')
-            return
-        }
-        if (selectedDoctor && _.isEmpty(selectedDoctor)) {
-            toast.error('Invalid selected doctor !!!')
-            return
-        }
         let date = new Date(currentDate);
 
         // Tạo date ở đúng 00:00 giờ Việt Nam (UTC+7)
@@ -158,7 +150,7 @@ class ManageSchedule extends Component {
                                 <FormattedMessage id="manage-schedule.title" />
                             </div>
                             <div className="col-6 form-group">
-                                <label for=""><FormattedMessage id="manage-schedule.choose-doctor" /></label>
+                                <label htmlFor=""><FormattedMessage id="manage-schedule.choose-doctor" /></label>
                                 <Select
                                     className="mt-3 mb-3"
                                     value={this.state.selectedDoctor}
@@ -167,7 +159,7 @@ class ManageSchedule extends Component {
                                 />
                             </div>
                             <div className="col-6 form-group">
-                                <label for=""><FormattedMessage id="manage-schedule.choose-date" /></label>
+                                <label htmlFor=""><FormattedMessage id="manage-schedule.choose-date" /></label>
                                 <DatePicker
                                     dateFormat="dd/MM/yyyy"
                                     onChange={this.handleDateChange}

@@ -73,8 +73,28 @@ const getDetailSpecialty = (data) => {
 const postDetailSpecialty = (data) => {
     return axios.post('/api/post-detail-specialty', data)
 }
+const createNewClinic = (data) => {
+    return axios.post('/api/create-new-clinic', data)
+}
+const postDetailClinic = (data) => {
+    return axios.post('/api/post-detail-clinic', data)
+}
+const getAllClinic = () => {
+    return axios.get('/api/get-all-clinic')
+}
+const getDetailClinic = (data) => {
+    return axios.get(`/api/get-detail-clinic?id=${data.id}`)
+}
+const getAllPatient = (data) => {
+    return axios.get(`/api/get-list-patient-booking?doctorID=${data.id}&date=${data.date}`)
+}
+const sendRedemy = (data) => {
+    return axios.post('/api/post-send-redemy', data)
+}
 export {
     handleLogin, getAllUsers, createNewUserService, delteteUserService, editUserService, getAllCodeService
     , getTopDoctorService, getAllDoctors, saveDetailDoctorService, getDetailDoctorService, saveDoctorScheduleService,
-    getScheduleDoctorByDate, getProfileDoctor, getDoctorBookingInfor, postPatientBooking, postVerifyEmailBooking, createNewSpecialty, getAllSpecialty, getDetailSpecialty, postDetailSpecialty
+    getScheduleDoctorByDate, getProfileDoctor, getDoctorBookingInfor, postPatientBooking, postVerifyEmailBooking,
+    createNewSpecialty, getAllSpecialty, getDetailSpecialty, postDetailSpecialty, createNewClinic, postDetailClinic, getAllClinic,
+    getDetailClinic, getAllPatient, sendRedemy
 }

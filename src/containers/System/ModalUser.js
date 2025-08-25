@@ -77,35 +77,35 @@ class ModalUser extends Component {
                         <div className="row">
                             <form className="row g-3">
                                 <div className="col-md-6">
-                                    <label for="email" className="form-label">Email</label>
+                                    <label htmlFor="email" className="form-label">Email</label>
                                     <input type="email" className="form-control" name="email"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "email")}
                                         value={this.state.email} />
                                 </div>
                                 <div className="col-md-6">
-                                    <label for="password" className="form-label">Password</label>
+                                    <label htmlFor="password" className="form-label">Password</label>
                                     <input type="password" className="form-control" name="password"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "password")}
                                         value={this.state.password} />
                                 </div>
                                 <div className="col-md-6">
-                                    <label for="firstname" className="form-label">First name</label>
+                                    <label htmlFor="firstname" className="form-label">First name</label>
                                     <input type="text" className="form-control" name="firstName"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "firstName")}
                                         value={this.state.firstName} />
                                 </div>
                                 <div className="col-md-6">
-                                    <label for="lastname" className="form-label">Last name</label>
+                                    <label htmlFor="lastname" className="form-label">Last name</label>
                                     <input type="text" className="form-control" name="lastName"
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "lastName")}
                                         value={this.state.lastName} />
                                 </div>
                                 <div className="col-12">
-                                    <label for="Address" className="form-label">Address</label>
+                                    <label htmlFor="Address" className="form-label">Address</label>
                                     <input type="address" className="form-control" name="address" placeholder=""
                                         required
                                         onChange={(e) => this.handleOnchangeInput(e, "address")}

@@ -48,6 +48,7 @@ class FeaturedDoctor extends Component {
                         <Slider {...this.props.settings}>
                             {arrDoctors && arrDoctors.length > 0 &&
                                 arrDoctors.map((item, index) => {
+                                    let nameSpecialty = item.Doctor_infor.Specialty.name
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
@@ -58,11 +59,11 @@ class FeaturedDoctor extends Component {
                                         <div className="doctor-item" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
                                             <div className="customize-border">
                                                 <div className="outer-bg">
-                                                    <div className="section-img doctor-img" style={{ backgroundImage: `url(${imageBase64})` }}></div>
+                                                    <div className="doctor-img"><img className='featured-doctor' src={imageBase64} alt="" /></div>
                                                 </div>
                                                 <div className="info-doctor text-center">
                                                     <div>{language === LANGUAGES.VI ? nameVi : nameEN}</div>
-                                                    <div>Cơ xương khớp4</div>
+                                                    <div className="mt-2 section-name">{nameSpecialty}</div>
                                                 </div>
                                             </div>
                                         </div>
