@@ -19,6 +19,8 @@
             background-size: 80%;
             height: 43em;
             transition: height 0.4s ease;
+            position: relative;
+            overflow: scroll;
 
             &.collapsed {
                 height: 20em;

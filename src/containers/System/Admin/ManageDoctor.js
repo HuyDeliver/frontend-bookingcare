@@ -314,7 +314,7 @@ class ManageDoctor
                             />
                         </div>
                         <div className="col-4 form-group mt-3">
-                            <label className='mb-2' for=""><FormattedMessage id="admin.manage-doctor.specialty" /></label>
+                            <label className='mb-2' for=""><FormattedMessage id="admin.manage-doctor.clinic" /></label>
                             <Select
                                 value={this.state.selectedClinic}
                                 onChange={(options) => this.handleSelectedChange(options, 'selectedClinic')}

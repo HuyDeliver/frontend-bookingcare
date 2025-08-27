@@ -36,6 +36,7 @@ class FeaturedDoctor extends Component {
 
     render() {
         let arrDoctors = this.state.arrDoctor;
+        console.log(arrDoctors)
         let language = this.props.language;
         return (
             <div className="doctor-section section-bg">

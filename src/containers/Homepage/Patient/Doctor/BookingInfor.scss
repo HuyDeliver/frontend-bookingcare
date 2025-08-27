@@ -13,9 +13,16 @@
         }
 
         .Doctor-clinic {
-            color: rgba(72, 196, 211, 1.00);
-            font-weight: 600;
-            font-size: 14px;
+            a {
+                color: #48c4d3;
+                font-weight: 600;
+                font-size: 14px;
+                text-decoration: none;
+
+                &:hover {
+                    color: #48c4d3;
+                }
+            }
         }
 
         .Doctor-address {

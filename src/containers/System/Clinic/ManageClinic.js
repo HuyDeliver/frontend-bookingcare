@@ -172,7 +172,9 @@ class ManageClinic extends Component {
                 selectedProvince: province,
                 name: data.name,
                 prevImg: data.image,
+                avatar: data.image,
                 prevBg: data.bgImage,
+                background: data.bgImage,
                 descriptionMarkdown: data.descriptionMarkdown,
                 descriptionHTML: data.descriptionHTML,
                 hasOlData: true

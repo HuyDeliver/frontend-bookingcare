@@ -121,6 +121,7 @@ class ManageSpecialty extends Component {
                 specialtyId: data.id,
                 name: data.name,
                 prevImg: data.image,
+                avatar: data.image,
                 descriptionMarkdown: data.descriptionMarkdown,
                 descriptionHTML: data.descriptionHTML,
                 hasOlData: true

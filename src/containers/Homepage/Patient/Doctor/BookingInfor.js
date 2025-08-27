@@ -5,6 +5,7 @@ import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import { getDoctorBookingInfor } from '../../../../services/userService';
 import NumberFormat from 'react-number-format';
+import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 class BookingInfor extends Component {
     constructor(props) {
@@ -81,7 +82,11 @@ class BookingInfor extends Component {
             <div className="Doctor-booking-info">
                 <div className="Doctor-booking-adress">
                     <div className='Doctor-address-title mb-1'><FormattedMessage id="patient.booking-infor.clinicAddress" /></div>
-                    <div className='Doctor-clinic mb-1'>{bookingInfor && bookingInfor.nameClinic ? bookingInfor.nameClinic : ''}</div>
+                    <div className='Doctor-clinic mb-1'>
+                        <Link to={bookingInfor && bookingInfor.clinicId ? `/detail-clinic/${bookingInfor.clinicId}` : ''}>
+                            {bookingInfor && bookingInfor.nameClinic ? bookingInfor.nameClinic : ''}
+                        </Link>
+                    </div>
                     <div className='Doctor-address mb-2'>{bookingInfor && bookingInfor.addressClinic ? bookingInfor.addressClinic : ''}</div>
                 </div>
                 <div className={isShowDetail === false ? "Doctor-booking-price d-flex align-items-center" : "Doctor-booking-price"}>

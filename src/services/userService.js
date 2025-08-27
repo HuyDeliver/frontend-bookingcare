@@ -91,10 +91,14 @@ const getAllPatient = (data) => {
 const sendRedemy = (data) => {
     return axios.post('/api/post-send-redemy', data)
 }
+
+const searchBar = (key) => {
+    return axios.get(`/api/search?searchKey=${key}`)
+}
 export {
     handleLogin, getAllUsers, createNewUserService, delteteUserService, editUserService, getAllCodeService
     , getTopDoctorService, getAllDoctors, saveDetailDoctorService, getDetailDoctorService, saveDoctorScheduleService,
     getScheduleDoctorByDate, getProfileDoctor, getDoctorBookingInfor, postPatientBooking, postVerifyEmailBooking,
     createNewSpecialty, getAllSpecialty, getDetailSpecialty, postDetailSpecialty, createNewClinic, postDetailClinic, getAllClinic,
-    getDetailClinic, getAllPatient, sendRedemy
+    getDetailClinic, getAllPatient, sendRedemy, searchBar
 }
