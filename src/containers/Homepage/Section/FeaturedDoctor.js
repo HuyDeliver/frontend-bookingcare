@@ -15,17 +15,22 @@ class FeaturedDoctor extends Component {
         super(props);
         this.state = {
             arrDoctor: [],
+            isLoading: true,
         };
     }
 
     componentDidMount() {
         this.props.loadTopDoctor();
+        this.setState({
+            isLoading: true
+        })
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.topdoctor !== this.props.topdoctor) {
             this.setState({
                 arrDoctor: this.props.topdoctor,
+                isLoading: false
             });
         }
     }
@@ -35,8 +40,8 @@ class FeaturedDoctor extends Component {
     };
 
     render() {
+        let { isLoading } = this.state
         let arrDoctors = this.state.arrDoctor;
-        console.log(arrDoctors)
         let language = this.props.language;
         return (
             <div className="doctor-section section-bg">
@@ -46,31 +51,35 @@ class FeaturedDoctor extends Component {
                         <button><FormattedMessage id="homepage.more-info" /></button>
                     </div>
                     <div className="section-body">
-                        <Slider {...this.props.settings}>
-                            {arrDoctors && arrDoctors.length > 0 &&
-                                arrDoctors.map((item, index) => {
-                                    let nameSpecialty = item.Doctor_infor.Specialty.name
-                                    let imageBase64 = '';
-                                    if (item.image) {
-                                        imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
-                                    }
-                                    let nameEN = `${item.positionData.value_EN} ${item.lastName} ${item.firstName}`;
-                                    let nameVi = `${item.positionData.value_VN} ${item.lastName} ${item.firstName}`;
-                                    return (
-                                        <div className="doctor-item" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
-                                            <div className="customize-border">
-                                                <div className="outer-bg">
-                                                    <div className="doctor-img"><img className='featured-doctor' src={imageBase64} alt="" /></div>
-                                                </div>
-                                                <div className="info-doctor text-center">
-                                                    <div>{language === LANGUAGES.VI ? nameVi : nameEN}</div>
-                                                    <div className="mt-2 section-name">{nameSpecialty}</div>
+                        {isLoading ?
+                            <div>Đang tải...</div>
+                            :
+                            <Slider {...this.props.settings}>
+                                {arrDoctors && arrDoctors.length > 0 &&
+                                    arrDoctors.map((item, index) => {
+                                        let nameSpecialty = item.Doctor_infor.Specialty.name
+                                        let imageBase64 = '';
+                                        if (item.image) {
+                                            imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
+                                        }
+                                        let nameEN = `${item.positionData.value_EN} ${item.lastName} ${item.firstName}`;
+                                        let nameVi = `${item.positionData.value_VN} ${item.lastName} ${item.firstName}`;
+                                        return (
+                                            <div className="doctor-item" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
+                                                <div className="customize-border">
+                                                    <div className="outer-bg">
+                                                        <div className="doctor-img"><img className='featured-doctor' src={imageBase64} alt="" /></div>
+                                                    </div>
+                                                    <div className="info-doctor text-center">
+                                                        <div>{language === LANGUAGES.VI ? nameVi : nameEN}</div>
+                                                        <div className="mt-2 section-name">{nameSpecialty}</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
-                        </Slider>
+                                        );
+                                    })}
+                            </Slider>
+                        }
                     </div>
                 </div>
             </div>

@@ -35,7 +35,7 @@ class ManageClinic extends Component {
     }
 
     async componentDidMount() {
-        this.getDataClinic()
+        await this.getDataClinic()
         this.props.fetchProvinceClinic()
 
     }
@@ -47,16 +47,18 @@ class ManageClinic extends Component {
             })
         }
         if (this.state.hasOlData !== prevState.hasOlData) {
-            this.getDataClinic();
+            await this.getDataClinic();
         }
     }
     getDataClinic = async () => {
         let res = await getAllClinic()
+        console.log("cehck data", res.data)
         if (res && res.errCode === 0) {
             this.setState({
                 dataClinic: res.data
             })
         }
+        console.log("check state", this.state.dataClinic)
     }
     buildDataSelect = (inputData) => {
         let result = []
@@ -136,6 +138,7 @@ class ManageClinic extends Component {
         }
         if (res && res.errCode === 0) {
             toast.success(res.errMessage)
+            this.getDataClinic()
             this.setState({
                 name: '',
                 address: '',
@@ -207,6 +210,7 @@ class ManageClinic extends Component {
             })
         }
         let { dataClinic } = this.state
+        console.log(dataClinic)
         return (
             <>
                 <div className="manage-specialty-container">
@@ -298,7 +302,7 @@ class ManageClinic extends Component {
                                             </tr>
                                         </thead>
                                         <tbody className="text-center align-middle">
-                                            {dataClinic && !_.isEmpty(dataClinic) &&
+                                            {dataClinic && !_.isEmpty(dataClinic) > 0 &&
                                                 dataClinic.map((item, index) => {
                                                     return (
                                                         <tr key={index} >

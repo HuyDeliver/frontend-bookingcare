@@ -15,48 +15,59 @@ class MedicalFacility extends Component {
         super(props);
         this.state = {
             dataClinic: [],
+            isLoading: true,
         };
     }
     async componentDidMount() {
-        let res = await getAllClinic()
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataClinic: res.data
-            })
+        try {
+            let res = await getAllClinic()
+            if (res && res.errCode === 0) {
+                this.setState({
+                    dataClinic: res.data,
+                    isLoading: false,
+                });
+            }
+        } catch (error) {
+            console.error('Lỗi kết nối:', error);
+            this.setState({ isLoading: false });
         }
     }
+
 
     componentDidUpdate(prevProps) {
 
     }
     handleViewDetailClinic = (item) => {
         if (this.props && this.props.history) {
-            console.log("check", this.props)
             this.props.history.push(`/detail-clinic/${item.id}`)
         }
     }
     render() {
-        let { dataClinic } = this.state
+        let { dataClinic, isLoading } = this.state
         return (
             <div className="medical-facility-section">
                 <div className="section-container">
                     <div className="section-heading">
-                        <span>Cơ sở y tế nổi bật</span>
-                        <button>Xem thêm</button>
+                        <span><FormattedMessage id='homepage.clinic' /></span>
+                        <button><FormattedMessage id='homepage.more-info' /></button>
                     </div>
                     <div className="section-body">
-                        <Slider {...this.props.settings}>
-                            {dataClinic && !_.isEmpty(dataClinic) &&
-                                dataClinic.map((item, index) => {
-                                    return (
-                                        <div className="medical-facility-item" key={index} onClick={() => this.handleViewDetailClinic(item)}>
-                                            <div className="section-img medical-img"><img src={item.image} alt="" /></div>
-                                            <div className="mt-2 text-center section-name">{item.name}</div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </Slider>
+                        {isLoading ?
+                            <div>Đang tải...</div>
+                            :
+                            <Slider {...this.props.settings}>
+                                {dataClinic && !_.isEmpty(dataClinic) > 0 &&
+                                    dataClinic.map((item, index) => {
+                                        return (
+                                            <div className="medical-facility-item" key={item.id} onClick={() => this.handleViewDetailClinic(item)}>
+                                                <div className="section-img medical-img"><img src={item.image} alt={item.name} loading="lazy" /></div>
+                                                <div className="mt-2 text-center section-name">{item.name}</div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </Slider>
+                        }
                     </div>
                 </div>
             </div>

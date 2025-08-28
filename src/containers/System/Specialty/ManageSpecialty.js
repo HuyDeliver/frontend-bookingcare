@@ -38,8 +38,10 @@ class ManageSpecialty extends Component {
 
     }
 
-    componentDidUpdate(prevProps) {
-
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.state.hasOlData !== prevState.hasOlData) {
+            await this.getAllSpecialty();
+        }
     }
 
     handleOnchangeImg = async (e) => {

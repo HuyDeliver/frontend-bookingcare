@@ -58,7 +58,8 @@
     "homepage": {
         "outstandingdoctor": "Bác sĩ nổi bật tuần qua",
         "more-info": "Xem thêm",
-        "specialty": "Chuyên khoa phổ biến"
+        "specialty": "Chuyên khoa phổ biến",
+        "clinic": "Cơ sở y tế nổi bật"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
