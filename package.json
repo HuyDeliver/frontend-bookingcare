@@ -38,7 +38,8 @@
         "sass": "1.63.6",
         "slick-carousel": "1.8.1",
         "typescript": "4.3.2",
-        "url": "^0.11.4"
+        "url": "^0.11.4",
+        "react-app-rewired": "^2.2.1"
     },
     "scripts": {
         "dev": "react-app-rewired start",
@@ -63,7 +64,6 @@
     },
     "devDependencies": {
         "buffer": "^6.0.3",
-        "process": "^0.11.10",
-        "react-app-rewired": "^2.2.1"
+        "process": "^0.11.10"
     }
 }
