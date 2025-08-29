@@ -63,6 +63,7 @@ class App extends Component {
                             pauseOnFocusLoss
                             draggable
                             pauseOnHover
+                            theme="colored"
                         />
                     </div>
                 </Router>
