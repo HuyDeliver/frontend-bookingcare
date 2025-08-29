@@ -29,18 +29,20 @@ class ManageSpecialty extends Component {
     }
 
     async componentDidMount() {
-        let res = await getAllSpecialty()
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataSpecialty: res.data
-            })
-        }
-
+        await this.getAllSpecialty()
     }
 
     async componentDidUpdate(prevProps, prevState) {
         if (this.state.hasOlData !== prevState.hasOlData) {
             await this.getAllSpecialty();
+        }
+    }
+    getAllSpecialty = async () => {
+        let res = await getAllSpecialty()
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataSpecialty: res.data
+            })
         }
     }
 
