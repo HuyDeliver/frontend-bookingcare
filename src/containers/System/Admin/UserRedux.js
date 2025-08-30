@@ -7,7 +7,7 @@ import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import TableManageUser from './tableManageUser';
-
+import { stringify } from 'react-auth-wrapper/helpers';
 class UserRedux extends Component {
 
     constructor(props) {
