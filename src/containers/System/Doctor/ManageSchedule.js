@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import './ManageSchedule.scss'
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions'
-import { dateFormat, LANGUAGES } from '../../../utils';
-import moment from 'moment';
+import { LANGUAGES } from '../../../utils';
 import { toast } from 'react-toastify';
-import _ from 'lodash';
 import { saveDoctorScheduleService } from '../../../services/userService';
 import DatePicker from "react-datepicker";
 

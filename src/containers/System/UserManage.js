@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers, createNewUserService, delteteUserService, editUserService } from '../../services/userService';
 import { emitter } from '../../utils/emitter';

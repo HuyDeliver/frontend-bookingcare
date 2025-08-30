@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Flatpickr from 'react-flatpickr';
 import moment from 'moment';
 

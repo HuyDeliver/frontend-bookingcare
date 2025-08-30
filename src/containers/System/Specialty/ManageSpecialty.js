@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import NumberFormat from 'react-number-format';
 import './ManageSpecialty.scss'
-import Select from 'react-select';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import { CommonUtils } from '../../../utils';

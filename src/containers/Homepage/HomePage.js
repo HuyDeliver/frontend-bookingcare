@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader'
 import Specialty from './Section/Specialty';
