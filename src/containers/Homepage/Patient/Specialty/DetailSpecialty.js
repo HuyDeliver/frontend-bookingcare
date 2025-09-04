@@ -94,11 +94,6 @@ class DetailSpecialty extends Component {
         const { specialtyId } = this.state;
         await this.getDoctorWithSpecialty(specialtyId, selectedProvince.value);
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> 79073ce15ad1b97ac592196e8ea0babb21ef62e8
-
     render() {
         console.log(this.state)
         const customStyles = {
