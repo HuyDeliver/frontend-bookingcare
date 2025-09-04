@@ -32,6 +32,7 @@
             display: flex;
             flex-direction: column;
             margin-left: 10px;
+            text-align: justify;
 
             .title-doctor {
                 font-size: 24px;
@@ -76,6 +77,60 @@
         div {
             @include content-size();
             padding: 16px 0;
+        }
+    }
+}
+
+@media (max-width: 1024px) {}
+
+@media (max-width: 768px) and (min-width: 480px) {}
+
+@media (min-width: 368px) and (max-width: 608px) {
+    .doctor-detail-container {
+
+        .infor-doctor {
+            .intro-doctor {
+                .title-doctor {
+                    font-size: 20px;
+
+                }
+
+                .job-title {
+                    font-size: 15px;
+                }
+            }
+
+            .content-wrapper {
+                width: 88%;
+            }
+
+            .schedule-doctor {
+                width: 88%;
+                flex-direction: column;
+
+                .schedule-detail {
+                    flex-basis: 55%;
+                    border-right: none;
+                    border-bottom: 1px solid rgba(221, 221, 221, 1.00);
+                }
+
+                .contact-doctor {
+                    flex-basis: 45%;
+                }
+            }
+        }
+
+        .detail-info-doctor {
+            font-size: 15px;
+
+            div {
+                width: 88% !important;
+            }
+        }
+
+        .Doctor-booking-info {
+            padding-left: 0;
+            padding-top: 1rem;
         }
     }
 }

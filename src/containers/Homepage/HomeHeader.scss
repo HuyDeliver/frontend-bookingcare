@@ -148,13 +148,13 @@
 
     .slider-search {
         position: absolute;
-        top: calc(15% + 14% + 3vh); // Dịch lên gần .slider-title hơn (15% + chiều cao tiêu đề + khoảng cách)
+        top: calc(15% + 14% + 3vh);
         left: 50%;
-        transform: translateX(-50%); // Chỉ căn giữa ngang
+        transform: translateX(-50%);
         background-color: #f7d800;
         z-index: 3;
-        width: 60%; // Giảm chiều rộng
-        max-width: 458px; // Thon hơn, giống hình
+        width: 60%;
+        max-width: 458px;
         padding: 8px;
         display: flex;
         justify-content: flex-start;
@@ -178,15 +178,15 @@
     .slider-option {
         position: absolute;
         z-index: 2;
-        bottom: 3%; // Đặt trong vùng trắng mờ (70%-100%)
+        bottom: 3%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        flex-wrap: nowrap; // Dàn ngang hết, không xuống dòng
+        flex-wrap: nowrap;
         justify-content: center;
         align-items: center;
         gap: clamp(10px, 2vw, 30px); // Giảm gap để vừa màn
-        width: 70%; // Giới hạn chiều rộng để không tràn
+        width: 70%;
 
         .option-menu {
             display: flex;
@@ -218,6 +218,247 @@
 
                 &:hover {
                     color: #49bce2;
+                }
+            }
+        }
+    }
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+    .home-header-container {
+        .home-header-content {
+            .left-content {
+                grid-template-columns: 1fr 3fr;
+
+                .header-logo {
+                    background-size: 90%;
+                }
+            }
+
+            .center-content {
+                gap: 12px;
+
+                .child-content {
+                    .menu-title {
+                        font-size: 14px;
+                    }
+
+                    .subs-title {
+                        font-size: 11px;
+                    }
+                }
+            }
+
+            .right-content {
+                .menu-support {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    .home-header-slider {
+        .slider-title {
+
+            h1,
+            h2 {
+                font-size: 20px;
+            }
+        }
+
+        .slider-search {
+            width: 75%;
+        }
+
+        .slider-option {
+            gap: 16px;
+        }
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px) {
+    .home-header-container {
+        padding: 0 12px;
+
+        .home-header-content {
+
+            .left-content {
+                i {
+                    font-size: 1.8rem;
+                }
+
+                .header-logo {
+                    background-size: 68%;
+                }
+            }
+
+            .center-content {
+                display: none;
+            }
+
+            .right-content {
+                justify-content: center;
+                gap: 12px;
+
+                .menu-lang {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .home-header-slider {
+        padding-top: 60%;
+
+        .slider-title {
+            top: 10%;
+
+            h1,
+            h2 {
+                font-size: 1.9rem;
+                white-space: nowrap;
+            }
+        }
+
+        .slider-search {
+            width: 60%;
+            max-width: none;
+            padding: 6px;
+
+            i {
+                font-size: 14px;
+            }
+        }
+
+        .slider-option {
+            flex-wrap: wrap;
+            gap: 12px;
+            width: 90%;
+
+            .option-menu {
+                flex: 0 1 24%;
+            }
+        }
+    }
+}
+
+@media (min-width: 368px) and (max-width: 608px) {
+    .home-header-container {
+        .home-header-content {
+            .left-content {
+                .header-logo {
+                    background-size: 80%;
+                }
+
+                flex: 1 0 28%;
+                display: grid;
+                grid-template-columns: 0fr 3fr;
+                grid-gap: 1vw;
+                gap: 12px;
+                background-size: 91%;
+                padding-left: 0.4rem;
+            }
+
+            .center-content {
+                display: none;
+            }
+
+            .right-content {
+                flex: 1 0 8%
+            }
+        }
+    }
+
+    .home-header-slider {
+        padding-top: 100%;
+
+        .slider-title {
+
+            h1,
+            h2 {
+                font-size: 1.4rem;
+                white-space: nowrap;
+            }
+        }
+
+        .slider-search {
+            width: 81%;
+            max-width: none;
+            padding: 6px;
+        }
+
+        .slider-option {
+            flex-wrap: wrap;
+            gap: 12px;
+            width: 91%;
+
+            .option-menu {
+                flex: 0 1 24%;
+            }
+        }
+    }
+}
+
+.sidebar-booking {
+    position: relative;
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out;
+
+        &.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &.active {
+        .sidebar {
+            left: 0; // trượt vào
+        }
+    }
+
+    .sidebar {
+        min-width: 250px;
+        max-width: 250px;
+        background-color: rgba(255, 255, 255, 1.00);
+        height: 100%;
+        position: fixed;
+        left: -250px;
+        transition: left 0.3s ease-in-out;
+        z-index: 700000000;
+        overflow: hidden;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+
+        .list-unstyled {
+            .list-menu {
+                padding-left: 15px;
+                padding-right: 15px;
+                padding-bottom: 10px;
+                padding-top: 10px;
+
+                a {
+                    color: #45c3d2;
+                    font-size: 1.1rem;
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    background-color: #45c3d2;
+                    transition: all 0.3s;
+
+                    a {
+                        color: white;
+                    }
                 }
             }
         }

@@ -22,36 +22,38 @@ class DetailSpecialty extends Component {
             detailSpecialty: {},
             isExpand: false,
             selectedProvince: '',
-            listProvinces: []
+            listProvinces: [],
+            specialtyId: ''
         };
     }
 
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id
-            let res = await getDetailSpecialty({
-                id: id,
-                location: 'ALL'
+            this.setState({
+                specialtyId: id
             })
-            if (res && res.errCode === 0) {
-                let doctorID = []
-                let data = res.data
-                if (data && !_.isEmpty(data)) {
-                    let arr = data.doctorSpecialty
-                    if (arr && arr.length > 0) {
-                        arr.map((item) => {
-                            doctorID.push(item.doctorId)
-                        })
-                    }
-                }
+            await this.getDoctorWithSpecialty(id, 'ALL')
+        }
+        this.props.fetchProvinceDoctor()
+
+    }
+
+    getDoctorWithSpecialty = async (id, location) => {
+        let res = await getDetailSpecialty({
+            id: id,
+            location: location
+        })
+        if (res && res.errCode === 0) {
+            let data = res.data
+            if (data && !_.isEmpty(data)) {
+                let doctorID = data.doctorSpecialty.map((item) => item.doctorId) || []
                 this.setState({
                     detailSpecialty: res.data,
                     arrDoctorId: doctorID
                 })
             }
         }
-        this.props.fetchProvinceDoctor()
-
     }
     componentDidUpdate(prevProps) {
         if (this.props.language !== prevProps.language) {
@@ -65,26 +67,20 @@ class DetailSpecialty extends Component {
         }
     }
     buildDataSelect = (inputData) => {
-        let result = []
-        let clone = [...inputData]
-        clone.unshift({
-            key: "ALL",
-            type: "PROVINCE",
-            value_EN: "NationWide",
-            value_VN: "Toàn quốc"
-        })
         let language = this.props.language
-        if (clone && clone.length > 0) {
-            clone.map((item) => {
-                let object = {}
-                let labelVI = item.value_VN
-                let labelEN = item.value_EN
-                object.label = language === LANGUAGES.VI ? labelVI : labelEN
-                object.value = item.key
-                result.push(object)
-            })
-        }
-        return result
+
+        return [
+            {
+                key: "ALL",
+                type: "PROVINCE",
+                value_EN: "NationWide",
+                value_VN: "Toàn quốc"
+            },
+            ...inputData
+        ].map((item) => ({
+            label: language === LANGUAGES.VI ? item.value_VN : item.value_EN,
+            value: item.key
+        }))
     }
 
     handleToggleDescription = () => {
@@ -93,31 +89,15 @@ class DetailSpecialty extends Component {
         })
     }
 
-    handleChange = (selectedProvince) => {
-        this.setState({ selectedProvince })
+    handleChange = async (selectedProvince) => {
+        this.setState({ selectedProvince });
+        const { specialtyId } = this.state;
+        await this.getDoctorWithSpecialty(specialtyId, selectedProvince.value);
+    };
 
-        let { detailSpecialty } = this.state
-        if (detailSpecialty && !_.isEmpty(detailSpecialty)) {
-            let id = []
-            let doctorProvince = detailSpecialty.doctorSpecialty
-            let filter = []
-            if (selectedProvince.value === 'ALL') {
-                filter = doctorProvince
-            } else {
-                filter = doctorProvince.filter((item) => {
-                    return item.provinceId === selectedProvince.value
-                })
-            }
-            filter.map((item) => {
-                id.push(item.doctorID)
-            })
-            this.setState({
-                arrDoctorId: id
-            })
-        }
-    }
 
     render() {
+        console.log(this.state)
         const customStyles = {
             option: (styles, state) => ({
                 ...styles,

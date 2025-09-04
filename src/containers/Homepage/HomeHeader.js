@@ -14,6 +14,8 @@ import Select, { components } from 'react-select';
 import { searchBar } from '../../services/userService';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -22,7 +24,8 @@ class HomeHeader extends Component {
             isChangelang: false,
             options: [],
             error: null,
-            isLoading: false
+            isLoading: false,
+            isSidebarOpen: false,
         };
 
         // this.searchTimeout = null;
@@ -106,6 +109,13 @@ class HomeHeader extends Component {
         }
     };
 
+    toggleSidebar = () => {
+        this.setState((prev) => ({ isSidebarOpen: !prev.isSidebarOpen }));
+    };
+
+    closeSidebar = () => {
+        this.setState({ isSidebarOpen: false });
+    };
     render() {
         // Custom Option với error handling
         const CustomOption = ({ data, ...props }) => {
@@ -197,10 +207,80 @@ class HomeHeader extends Component {
 
         return (
             <>
+                <div className={`sidebar-booking ${this.state.isSidebarOpen ? 'active' : ''}`}>
+                    <div className={`sidebar-overlay ${this.state.isSidebarOpen ? 'active' : ''}`} onClick={this.closeSidebar}></div>
+                    <div className='sidebar'>
+                        <div className="side-menu">
+                            <Nav vertical className="list-unstyled">
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link tag={Link} to={"/home"}>
+                                        Trang chủ
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link tag={Link} to={"/specialty"} exact>
+                                        <div className='menu-title'><FormattedMessage id="homeheader.speciality" /></div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link tag={Link} to={"/facility"} exact>
+                                        <div className='menu-title'><FormattedMessage id="homeheader.health-facility" /></div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link tag={Link} to={"/doctor"} exact>
+                                        <div className='menu-title'><FormattedMessage id="homeheader.Doctor" /></div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'><FormattedMessage id="homeheader.fee" /></div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'><FormattedMessage id="homeheader.fee" /></div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Liên hệ hợp tác</div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Sức khoe doanh nghiệp</div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Chuyển đổi số phòng khám</div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Tuyển dụng</div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Vai trò của BookingCare</div>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className='border-bottom list-menu'>
+                                    <Link exact>
+                                        <div className='menu-title'>Liên hệ</div>
+                                    </Link>
+                                </NavItem>
+
+                            </Nav>
+                        </div>
+                    </div>
+                </div>
                 <div className="home-header-container">
                     <div className="home-header-content">
                         <div className="left-content">
-                            <i className="fas fa-bars"></i>
+                            <i className="fas fa-bars" onClick={this.toggleSidebar} ></i>
                             <div className="header-logo" onClick={() => this.handlereturnToHome()}></div>
                         </div>
                         <div className="center-content">

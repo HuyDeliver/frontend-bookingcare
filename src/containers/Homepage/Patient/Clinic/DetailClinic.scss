@@ -1,7 +1,7 @@
 .detail-clinic-container {
     .clinic-introdution {
         position: relative;
-        padding-top: 21%;
+        padding-top: 30%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -138,40 +138,74 @@
     }
 }
 
-@media (max-width: 992px) {
-    .clinic-title {
-        width: 90%;
-        min-height: 80px;
-        padding: 0.8rem;
-    }
 
-    .clinic-info .clinic-name {
-        font-size: 20px;
-    }
 
-    .clinic-info .clinic-address {
-        font-size: 16px;
+@media (max-width: 1024px) {
+    .clinic-info {
+        .clinic-name {
+            font-size: 21px;
+        }
+
+        .clinic-address {
+            font-size: 16px;
+        }
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) and (min-width: 480px) {
+
+    .title-flex {
+        padding-top: 1rem !important;
+    }
+
+    .clinic-info {
+        .clinic-name {
+            font-size: 21px !important;
+        }
+
+        .clinic-address {
+            font-size: 16px !important;
+        }
+    }
+}
+
+@media (min-width: 368px) and (max-width: 608px) {
     .clinic-title {
-        flex-direction: column;
-        text-align: center;
-        min-height: auto; // co theo nội dung
-        padding: 0.6rem;
+        width: 92% !important;
+        bottom: -5rem !important;
+        padding: 0 !important;
+
+        .clinic-img>img {
+            width: 5em !important;
+        }
+
+        .title-flex {
+            padding-top: 1rem !important;
+        }
+
+        .clinic-info {
+            .clinic-name {
+                font-size: 16px !important;
+            }
+
+            .clinic-address {
+                font-size: 12px !important;
+            }
+        }
     }
 
-    .clinic-img>img {
-        height: 5em;
-        width: 5em;
-    }
+    .detail-clinic {
+        padding-right: 1.8rem !important;
+        padding-left: 1.8rem !important;
 
-    .clinic-info .clinic-name {
-        font-size: 18px;
-    }
+        .detail-description {
+            font-size: 16px !important;
+            text-align: justify;
+            letter-spacing: -0.01rem;
+        }
 
-    .clinic-info .clinic-address {
-        font-size: 14px;
+        img {
+            width: 100%;
+        }
     }
 }
