@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import './BookingInfor.scss';
 import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import { getDoctorBookingInfor } from '../../../../services/userService';
 import NumberFormat from 'react-number-format';
-import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class BookingInfor extends Component {
     constructor(props) {

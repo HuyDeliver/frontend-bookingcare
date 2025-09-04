@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import '../HomePage.scss';
-import { FormattedMessage } from 'react-intl';
 
 class About extends Component {
     render() {

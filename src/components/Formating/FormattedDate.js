@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import moment from 'moment';
 
 /** For valid format please see <a href="https://momentjs.com/docs/#/displaying/">Moment format options</a> */

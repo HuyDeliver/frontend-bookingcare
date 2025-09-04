@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../HomeHeader';
 import HomeFooter from '../../HomeFooter';
 import './DetailClinic.scss'
 import _ from 'lodash';
 import * as actions from '../../../../store/actions'
-import { LANGUAGES } from '../../../../utils';
 import { getDetailClinic } from '../../../../services/userService';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import ProfileDoctor from '../Doctor/ProfileDoctor';

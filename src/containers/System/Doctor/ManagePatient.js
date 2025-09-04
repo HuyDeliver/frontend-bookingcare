@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import NumberFormat from 'react-number-format';
 import './ManagePatient.scss'
 import DatePicker from "react-datepicker";
 import { getAllPatient, sendRedemy } from '../../../services/userService'
 import RemedyModal from './RemedyModal';
-import { Button, Spinner, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { toast } from 'react-toastify';
 import Loading from '../../../components/Loading/Loading';
 class ManagePatient extends Component {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../HomeHeader';
@@ -94,7 +94,10 @@ class DetailSpecialty extends Component {
         const { specialtyId } = this.state;
         await this.getDoctorWithSpecialty(specialtyId, selectedProvince.value);
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79073ce15ad1b97ac592196e8ea0babb21ef62e8
 
     render() {
         console.log(this.state)
